@@ -6,8 +6,8 @@ public class Device {
 	private int ID; //identifier for the device
 	private ArrayList<Malware> malwareList = new ArrayList<Malware>(); //list of all malware active on the device
 	
-	public Device(int nextID) {
-		ID=nextID;
+	public Device(int iID) {
+		ID=iID;
 	}
 	
 	public int getID() {
@@ -24,14 +24,14 @@ public class Device {
 	
 	public void infect(Malware malware) {
 		malwareList.add(malware);
-		System.out.println(">  Device " + ID + " infected with " + malware.getName() + "!\n");
+		//System.out.println(">  Device " + ID + " infected with " + malware.getName() + "!\n");
 	}
 	
 	public void patch(Malware malware) {
 		if(malwareList.remove(malware)) {
-			System.out.println(">  Device " + ID + " patched " + malware.getName() + "!\n");
+			//System.out.println(">  Device " + ID + " patched " + malware.getName() + "!\n");
 		} else {
-			System.out.println(">  Device " + ID + " is not infected with " + malware.getName() + ".\n");
+			//System.out.println(">  Device " + ID + " is not infected with " + malware.getName() + ".\n");
 		}
 		
 	}
