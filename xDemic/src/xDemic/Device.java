@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Device {
 	private int ID; //identifier for the device
 	private ArrayList<Malware> malwareList = new ArrayList<Malware>(); //list of all malware active on the device
+	private ArrayList<Integer> timeInfected = new ArrayList<Integer>(); //lsit of times when device was infected with the corresponding malware
 	
 	public Device(int iID) {
 		ID=iID;
@@ -22,16 +23,27 @@ public class Device {
 		return malwareList.isEmpty()?false:true;
 	}
 	
-	public void infect(Malware malware) {
-		malwareList.add(malware);
-		//System.out.println(">  Device " + ID + " infected with " + malware.getName() + "!\n");
+	public int getTimeInfected(Malware malware) {
+		if(malwareList.contains(malware)) {
+			return timeInfected.get(malwareList.indexOf(malware));
+		} else {
+			return -1;
+		}
+	}
+	
+	public void infect(Malware malware, int iTimeInfected) {
+		if(!malwareList.contains(malware)) {
+			malwareList.add(malware);
+			timeInfected.add(iTimeInfected);
+			//System.out.println(">  Device " + ID + " infected with " + malware.getName() + "!\n");
+		}
 	}
 	
 	public void patch(Malware malware) {
-		if(malwareList.remove(malware)) {
-			//System.out.println(">  Device " + ID + " patched " + malware.getName() + "!\n");
-		} else {
-			//System.out.println(">  Device " + ID + " is not infected with " + malware.getName() + ".\n");
+		if(malwareList.contains(malware)) {
+			timeInfected.remove(malwareList.indexOf(malware));
+			malwareList.remove(malware);
+			//System.out.println(">  Device " + ID + " patched from " + malware.getName() + "!\n");
 		}
 		
 	}
