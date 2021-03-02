@@ -5,14 +5,25 @@ import java.util.ArrayList;
 public class Device {
 	private int ID; //identifier for the device
 	private ArrayList<Malware> malwareList = new ArrayList<Malware>(); //list of all malware active on the device
-	private ArrayList<Integer> timeInfected = new ArrayList<Integer>(); //lsit of times when device was infected with the corresponding malware
+	private ArrayList<Malware> patchedMalwareList = new ArrayList<Malware>(); //list of which malware have been patched
+	private int timeToPatch=Integer.MAX_VALUE;
+	//resistance factor?
 	
 	public Device(int iID) {
 		ID=iID;
 	}
 	
+	public Device(int iID, int iTimeToPatch) {
+		ID=iID;
+		timeToPatch=iTimeToPatch;
+	}
+	
 	public int getID() {
 		return ID;
+	}
+	
+	public int getTimeToPatch() {
+		return timeToPatch;
 	}
 	
 	public ArrayList<Malware> getMalware() {
@@ -23,33 +34,25 @@ public class Device {
 		return malwareList.isEmpty()?false:true;
 	}
 	
-	public int getTimeInfected(Malware malware) {
-		if(malwareList.contains(malware)) {
-			return timeInfected.get(malwareList.indexOf(malware));
-		} else {
-			return -1;
-		}
-	}
-	
-	public void infect(Malware malware, int iTimeInfected) {
-		if(!malwareList.contains(malware)) {
+	public void infect(Malware malware) {
+		if(!malwareList.contains(malware) && !patchedMalwareList.contains(malware)) {
+			//potentially add resistance factor here, where devices can prevent infection
 			malwareList.add(malware);
-			timeInfected.add(iTimeInfected);
 			//System.out.println(">  Device " + ID + " infected with " + malware.getName() + "!\n");
 		}
 	}
 	
 	public void patch(Malware malware) {
 		if(malwareList.contains(malware)) {
-			timeInfected.remove(malwareList.indexOf(malware));
 			malwareList.remove(malware);
+			patchedMalwareList.add(malware);
 			//System.out.println(">  Device " + ID + " patched from " + malware.getName() + "!\n");
 		}
 		
 	}
 	
 	public void printInfo() {
-		System.out.println("== Device Info =========================");
+		System.out.println("== Device Info ===================================");
 		System.out.println("|  ID: " + ID);
 		if(malwareList.size()==0) {
 			System.out.println("|  Device " + ID + " is not infected.");
@@ -59,6 +62,6 @@ public class Device {
 				System.out.println("|  - " + (malwareList.get(i)).getName());
 			}
 		}
-		System.out.println("========================================\n");
+		System.out.println("==================================================\n");
 	}
 }

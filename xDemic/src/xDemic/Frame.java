@@ -3,12 +3,13 @@ package xDemic;
 import java.util.ArrayList;
 
 public class Frame {
+	private java.util.Random random = new java.util.Random();
+	
 	private int ID;
 	private ArrayList<Device> deviceList = new ArrayList<Device>();
 	private ArrayList<Malware> malwareList = new ArrayList<Malware>();
 	
 	public Frame(int iID, ArrayList<Device> iDeviceList, ArrayList<Malware> iMalwareList) {
-		java.util.Random random = new java.util.Random();
 		ID=iID;
 		deviceList=iDeviceList;
 		malwareList=iMalwareList;
@@ -16,11 +17,12 @@ public class Frame {
 		if(ID==0) {
 			initialize();
 		} else {
+			//see if any devices can be patched
+			checkPatches();
+			//interact pre-determined number of times
 			for(int i=0; i<deviceList.size(); i++) {
-				//see if any devices have met the time requirement to recover
-				recovery();
 				//choose two random devices to interact
-				interaction(deviceList.get(random.nextInt(deviceList.size())), deviceList.get(random.nextInt(deviceList.size())));
+				interact(deviceList.get(random.nextInt(deviceList.size())), deviceList.get(random.nextInt(deviceList.size())));
 			}
 		}
 		
@@ -36,18 +38,18 @@ public class Frame {
 		for(int i=0; i<malwareList.size(); i++) {
 			for(int j=0; j<deviceList.size(); j++) {
 				if(j*100.0/deviceList.size() < malwareList.get(i).getInitialInfected()) {
-					deviceList.get(j).infect(malwareList.get(i), ID);
+					deviceList.get(j).infect(malwareList.get(i));
 				}
 			}
 		}
-		//print the initial status
+		//print the initialization status
 		System.out.println("> Initialization Complete.\n");
-		System.out.println("== Initialization Results ==============");
+		System.out.println("== Initialization Results ========================");
 		System.out.println("|  Total infected: " + checkInfected() + "%");
 		for(int i=0; i<malwareList.size(); i++) {
 			System.out.println("|  - " + malwareList.get(i).getName() + ": " + checkInfected(malwareList.get(i)) + "%");
 		}
-		System.out.println("========================================\n");
+		System.out.println("==================================================\n");
 	}
 	
 	public double checkInfected() {
@@ -70,20 +72,17 @@ public class Frame {
 		return 100.0*count/deviceList.size();
 	}
 	
-	public void recovery() {
+	public void checkPatches() {
 		for(int i=0; i<malwareList.size(); i++) {
 			for(int j=0; j<deviceList.size(); j++) {
-				if(deviceList.get(j).getMalware().contains(malwareList.get(i))) {
-					if(ID-malwareList.get(i).getRecoveryPeriod() > deviceList.get(j).getTimeInfected(malwareList.get(i))) {
-						deviceList.get(j).patch(malwareList.get(i));
-					}
+				if(deviceList.get(j).getTimeToPatch() == ID-malwareList.get(i).getPatchRelease()) {
+					deviceList.get(j).patch(malwareList.get(i));
 				}
 			}
 		}
 	}
 	
-	public void interaction(Device device1, Device device2) {
-		java.util.Random random = new java.util.Random();
+	public void interact(Device device1, Device device2) {
 		ArrayList<Malware> d1Malware = device1.getMalware();
 		ArrayList<Malware> d2Malware = device2.getMalware();
 		
@@ -94,7 +93,7 @@ public class Frame {
 				//if device2 is infected based on probability of device1's selected malware
 				if(random.nextDouble()*100 <= d1Malware.get(i).getChanceInfection()) {
 					//infect device2 with device1's selected malware
-					device2.infect(d1Malware.get(i), ID);
+					device2.infect(d1Malware.get(i));
 				}
 			}
 		}
@@ -106,7 +105,7 @@ public class Frame {
 				//if device1 is infected based on probability of device2's selected malware
 				if(random.nextDouble()*100 <= d2Malware.get(i).getChanceInfection()) {
 					//infect device1 with device2's selected malware
-					device1.infect(d2Malware.get(i), ID);
+					device1.infect(d2Malware.get(i));
 				}
 			}
 		}
@@ -138,15 +137,15 @@ public class Frame {
 		} else {
 			bar="##########";
 		}
-		System.out.println("Infected: " + value + "%   \t| " + bar);
+		System.out.println("# | " + bar);
 	}
 	
 	public void printFrame() {
-		System.out.println("== Frame Results =======================");
+		System.out.println("== Frame Results =================================");
 		System.out.println("|  Total infected: " + checkInfected() + "%");
 		for(int i=0; i<malwareList.size(); i++) {
 			System.out.println("|  - " + malwareList.get(i).getName() + ": " + checkInfected(malwareList.get(i)) + "%");
 		}
-		System.out.println("========================================\n");
+		System.out.println("==================================================\n");
 	}
 }
