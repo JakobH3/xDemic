@@ -17,14 +17,14 @@ public class xDemic {
 		ArrayList<Frame> frameList = new ArrayList<Frame>();
 		
 		for(int i=0; i<NUM_OF_DEVICES; i++) {
-			deviceList.add(new Device(i, random.nextInt(100)));
+			deviceList.add(new Device(i, 0, 50));
 		}
 		
 		System.out.println("== Simulation Info ===============================");
 		System.out.println("| Number of devices: " + NUM_OF_DEVICES);
 		System.out.println("==================================================\n");
 		
-		Malware test = new Malware("Test", 20, 10, 10);
+		Malware test = new Malware("Test", 10, 100, 50);
 		malwareList.add(test);
 		test.printInfo();
 		

@@ -36,7 +36,7 @@ public class Frame {
 		for(int i=0; i<malwareList.size(); i++) {
 			for(int j=0; j<deviceList.size(); j++) {
 				if(j*100.0/deviceList.size() < malwareList.get(i).getInitialInfected()) {
-					deviceList.get(j).infect(malwareList.get(i));
+					deviceList.get(j).initialInfect(malwareList.get(i));
 				}
 			}
 		}
