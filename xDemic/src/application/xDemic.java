@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class xDemic {
 	private static final int NUM_OF_MALWARE=1;
-	private static final int NUM_OF_DEVICES=1000;
+	private static final int NUM_OF_DEVICES=100000;
 	private static final int NUM_OF_FRAMES=100;
 	
 	public xDemic() {
