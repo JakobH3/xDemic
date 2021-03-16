@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-03-16T01:24:41.908Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36" etag="FYmUtdB6NPEZ7Cmjdye7" version="14.4.8" type="github">
+<mxfile host="app.diagrams.net" modified="2021-03-16T01:39:51.537Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36" etag="HtT6qdXgoKyk_NnD4eD8" version="14.4.8" type="github">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
     <mxGraphModel dx="689" dy="559" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -19,8 +19,8 @@
         <mxCell id="gzWh6iva3rg4xpFQuiqM-8" value="- ID: int&lt;br&gt;- malwareList: ArrayList&amp;lt;Malware&amp;gt;&lt;br&gt;- patchedMalwareList: ArrayList&amp;lt;Malware&amp;gt;&lt;br&gt;-timeToPatch: int&lt;br&gt;- resistance: double" style="rounded=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="300" y="320" width="240" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="gzWh6iva3rg4xpFQuiqM-9" value="+ getID(): int&lt;br&gt;+ getMalware(): ArrayList&amp;lt;Malware&amp;gt;&lt;br&gt;+ isInfected(): boolean&lt;br&gt;+ infect(malware: Malware): void&lt;br&gt;+ patch(malware: Malware): void&lt;br&gt;+ printInfo(): void" style="rounded=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="300" y="400" width="240" height="90" as="geometry" />
+        <mxCell id="gzWh6iva3rg4xpFQuiqM-9" value="+ getID(): int&lt;br&gt;+ getTimeToPatch(): int&lt;br&gt;+ getResistance(): double&lt;br&gt;+ getMalware(): ArrayList&amp;lt;Malware&amp;gt;&lt;br&gt;+ isInfected(): boolean&lt;br&gt;+ initialInfect(malware: Malware): void&lt;br&gt;+ infect(malware: Malware): void&lt;br&gt;+ patch(malware: Malware): void&lt;br&gt;+ printInfo(): void" style="rounded=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="300" y="400" width="240" height="130" as="geometry" />
         </mxCell>
         <mxCell id="gzWh6iva3rg4xpFQuiqM-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.75;entryY=1;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="gzWh6iva3rg4xpFQuiqM-10" target="gzWh6iva3rg4xpFQuiqM-5" edge="1">
           <mxGeometry relative="1" as="geometry">
@@ -34,11 +34,11 @@
         <mxCell id="gzWh6iva3rg4xpFQuiqM-10" value="Malware" style="rounded=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="560" y="300" width="200" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="gzWh6iva3rg4xpFQuiqM-11" value="- name: String&lt;br&gt;- chanceInfection: double&lt;br&gt;- initialInfected: double" style="rounded=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="560" y="320" width="200" height="50" as="geometry" />
+        <mxCell id="gzWh6iva3rg4xpFQuiqM-11" value="- name: String&lt;br&gt;- chanceInfection: double&lt;br&gt;- initialInfected: double&lt;br&gt;- patchRelease: int" style="rounded=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="560" y="320" width="200" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="gzWh6iva3rg4xpFQuiqM-12" value="+ getName(): String&lt;br&gt;+ getChanceInfection(): double&lt;br&gt;+ getInitialInfected(): double&lt;br&gt;+ printInfo(): void" style="rounded=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="560" y="370" width="200" height="60" as="geometry" />
+        <mxCell id="gzWh6iva3rg4xpFQuiqM-12" value="+ getName(): String&lt;br&gt;+ getChanceInfection(): double&lt;br&gt;+ getInitialInfected(): double&lt;br&gt;+ setPatchRelease(): void&lt;br&gt;+ getPatchRelease(): int&lt;br&gt;+ printInfo(): void" style="rounded=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="560" y="380" width="200" height="90" as="geometry" />
         </mxCell>
         <mxCell id="PkQqVzZAfAscNi_TRfAs-0" value="Main" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
           <mxGeometry x="320" y="90" width="200" height="20" as="geometry" />
