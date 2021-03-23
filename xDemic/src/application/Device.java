@@ -8,12 +8,8 @@ public class Device {
 	private int ID; //identifier for the device
 	private ArrayList<Malware> malwareList = new ArrayList<Malware>(); //list of all malware active on the device
 	private ArrayList<Malware> patchedMalwareList = new ArrayList<Malware>(); //list of which malware have been patched
-	private int timeToPatch=Integer.MAX_VALUE;
-	private double resistance=0; //probability of a device resisting malware
-	
-	public Device(int iID) {
-		ID=iID;
-	}
+	private int timeToPatch; //number of time units until the malware is patched
+	private double resistance; //probability of a device resisting malware
 	
 	public Device(int iID, int iTimeToPatch, double iResistance) {
 		ID=iID;
