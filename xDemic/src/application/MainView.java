@@ -1,31 +1,38 @@
 package application;
 
 import javafx.scene.layout.BorderPane;
-import javafx.scene.control.ToolBar;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.scene.layout.Pane;
 
 public class MainView extends BorderPane {
 	private Simulation simulation;
 	private Simulator simulator;
 	
+	Tools topPane;
+	VBox leftPane;
+	Pane centerPane;
+	Pane rightPane;
+	VBox bottomPane;
+	
 	public MainView() {
-		ToolBar topPane = new ToolBar();
+		topPane = new Tools(this);
 		
-		VBox leftPane = new VBox(3);
+		leftPane = new VBox(3);
 		leftPane.setMinWidth(400);
 		leftPane.setMaxWidth(400);
 		
-		Pane centerPane = new Pane();
+		centerPane = new Pane();
 		centerPane.setMinWidth(600);
 		centerPane.getStyleClass().add("pane");
 		
-		Pane rightPane = new Pane();
+		rightPane = new Pane();
 		rightPane.setMinWidth(600);
 		rightPane.setMaxWidth(600);
 		
-		Pane bottomPane = new Pane();
-		bottomPane.setMinHeight(10);
+		bottomPane = new VBox(1);
+		bottomPane.setMinHeight(300);
+		bottomPane.setMaxHeight(300);
 		bottomPane.setId("bottom");
 		
 		this.setTop(topPane);
@@ -41,8 +48,10 @@ public class MainView extends BorderPane {
 	public void draw() {
 		System.out.println("Updating...");
 		// TODO draw based on the data available
+		this.bottomPane.getChildren().add(new Text("Updating..."));
 		// TODO give each class "simulation" to obtain the data
 		System.out.println("Done!");
+		this.bottomPane.getChildren().add(new Text("Done!"));
 	}
 	
 	public Simulation getSimulation() {

@@ -3,6 +3,7 @@ package application;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 public class Simulator {
@@ -28,7 +29,8 @@ public class Simulator {
     			&& simulation.getMalwareList().size() > 0) {
     		this.timeline.play();
     	} else {
-    		// TODO show an error message
+    		System.out.println("Unable to begin simulation.");
+    		this.mainView.bottomPane.getChildren().add(new Text("Unable to begin simulation."));
     	}
     }
 
