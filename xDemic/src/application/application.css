@@ -1,3 +1,13 @@
-.root {
-	-fx-background: rgb(100, 0, 0);
+/* ignore errors and syntax in here, dont know why they are here but it works! */
+
+#mainView {
+	-fx-background-color: #2F2F2F;
+}
+
+.pane {
+	-fx-background-color: #3F3F3F;
+}
+
+#bottom {
+	-fx-background-color: #5F5F5F;
 }
