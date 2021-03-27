@@ -4,12 +4,25 @@
 	-fx-background-color: #2F2F2F;
 }
 
-.pane {
-	-fx-background-color: #3F3F3F;
+#toolbar {
+	-fx-background-color: #4F4F4F;
+	-fx-padding: 0px;
 }
 
-#bottom {
-	-fx-background-color: white;
+#toolbar .button {
+	-fx-background-color: transparent;
+	-fx-text-fill: white;
+	-fx-pref-height: 25px;
+	-fx-background-radius: 0;
+	-fx-background-insets: 0,0,0,0,0;
+}
+
+#toolbar .button:hover {
+	-fx-background-color: #5F5F5F;
+}
+
+.pane {
+	-fx-background-color: #3F3F3F;
 }
 
 #malwareList {

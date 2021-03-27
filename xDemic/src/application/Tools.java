@@ -1,4 +1,4 @@
-package application;
+ package application;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
@@ -12,17 +12,22 @@ public class Tools extends ToolBar {
 		
 		Button example = new Button("Load Example");
         example.setOnAction(this::handleExample);
+        
         Button start = new Button("Start");
         start.setOnAction(this::handleStart);
-        Button stop = new Button("Stop");
-        stop.setOnAction(this::handleStop);
-
-        this.getItems().addAll(example, start, stop);
+		
+		Button stop = new Button("Stop");
+		stop.setOnAction(this::handleStop);
+		
+		this.getItems().addAll(example, start, stop);
+		this.setId("toolbar");
 	}
 	
 	private void handleExample(ActionEvent actionEvent) {
-		mainView.getSimulation().loadExample();
-		mainView.draw();
+		if(mainView.getState()==MainView.EDITING) {
+			mainView.getSimulation().loadExample();
+			mainView.draw();
+		}
 	}
 	
 	private void handleStart(ActionEvent actionEvent) {
