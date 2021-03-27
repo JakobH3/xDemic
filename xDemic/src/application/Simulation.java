@@ -8,7 +8,7 @@ public class Simulation {
 	private ArrayList<Device> nodeList;
 	private ArrayList<Connection> connectionList;
 	private ArrayList<Malware> malwareList;
-	private double deviceMobilityFactor; // max of 1
+	private double deviceMobilityFactor=1; // max of 1
 	private double centralMobilityFactor; // max of 1
 	private double nodeMobilityFactor; // max of 1
 	
@@ -66,15 +66,17 @@ public class Simulation {
 	}
 	
 	public void loadExample() {
-		// TODO Auto-generated method stub
-		Example example = new Example();
-		this.deviceList = example.getDeviceList();
-		this.nodeList = example.getNodeList();
-		this.connectionList = example.getConnectionList();
-		this.malwareList = example.getMalwareList();
-		this.deviceMobilityFactor = example.getDeviceMobilityFactor();
-		this.centralMobilityFactor = example.getCentralMobilityFactor();
-		this.nodeMobilityFactor = example.getNodeMobilityFactor();
+		for(int i=0; i<100; i++) {
+			deviceList.add(new Device(i, Integer.MAX_VALUE, i));
+		}
+		
+		malwareList.add(new Malware("Example Malware", 100, Integer.MAX_VALUE));
+		
+		for(int i=0; i<deviceList.size()-1; i++) {
+			connectionList.add(new Connection(deviceList.get(i), deviceList.get(i+1)));
+		}
+		
+		deviceList.get(0).infect(malwareList.get(0));
 	}
 	
 	public ArrayList<Device> getDeviceList() {

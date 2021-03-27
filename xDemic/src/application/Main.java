@@ -12,14 +12,14 @@ public class Main extends Application {
 		try {
 			MainView mainView = new MainView();
 			mainView.setId("mainView");
+			
 			Scene scene = new Scene(mainView, 1600, 800);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			
 			stage.getIcons().add(new Image("file:logo.png"));
 			stage.setTitle("xDemic Malware Simulation");
 			stage.setScene(scene);
 			stage.show();
-			
-			System.out.println("\n> Welcome to xDemic!\n");
 			
 			mainView.draw();
 		} catch(Exception e) {

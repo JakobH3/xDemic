@@ -9,5 +9,10 @@
 }
 
 #bottom {
-	-fx-background-color: #5F5F5F;
+	-fx-background-color: white;
+}
+
+#malwareList {
+	-fx-background-color: #4F4F4F;
+	-fx-padding: 10px;
 }

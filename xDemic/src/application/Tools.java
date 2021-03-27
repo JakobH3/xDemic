@@ -21,14 +21,15 @@ public class Tools extends ToolBar {
 	}
 	
 	private void handleExample(ActionEvent actionEvent) {
-		this.mainView.getSimulation().loadExample();
+		mainView.getSimulation().loadExample();
+		mainView.draw();
 	}
 	
 	private void handleStart(ActionEvent actionEvent) {
-        this.mainView.getSimulator().start();
+        mainView.getSimulator().start();
     }
 	
 	private void handleStop(ActionEvent actionEvent) {
-        this.mainView.getSimulator().stop();
+        mainView.getSimulator().stop();
     }
 }

@@ -11,10 +11,6 @@ public class Device {
 	private int timeToPatch; //number of time units until the malware is patched
 	private double resistance; //probability of a device resisting malware
 	
-	public Device() {
-		
-	}
-	
 	public Device(int Id, int timeToPatch, double resistance) {
 		this.Id=Id;
 		this.timeToPatch=timeToPatch;
@@ -63,6 +59,7 @@ public class Device {
 			//check if device will resist the attack
 			if(resistance < 100*random.nextDouble()) {
 				malwareList.add(malware);
+				System.out.println("Device infected");
 			}
 		}
 	}
@@ -73,6 +70,10 @@ public class Device {
 			patchedMalwareList.add(malware);
 		}
 		
+	}
+	
+	public boolean isPatched() {
+		return (patchedMalwareList.size() > 0);
 	}
 	
 	public void printInfo() {

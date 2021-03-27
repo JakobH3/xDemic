@@ -1,57 +1,65 @@
 package application;
 
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.scene.layout.Pane;
 
 public class MainView extends BorderPane {
 	private Simulation simulation;
 	private Simulator simulator;
 	
-	Tools topPane;
-	VBox leftPane;
-	Pane centerPane;
-	Pane rightPane;
-	VBox bottomPane;
+	private Tools topPane;
+	private Pane malware;
+	private Pane output;
+	private Pane environment;
+	private Pane bottomPane;
+	
+	public static final boolean EDITING = false;
+    public static final boolean SIMULATING = true;
+    
+    private boolean state = EDITING;
 	
 	public MainView() {
+		this.simulation = new Simulation();
+		this.simulator = new Simulator(this);
+		
 		topPane = new Tools(this);
 		
-		leftPane = new VBox(3);
-		leftPane.setMinWidth(400);
-		leftPane.setMaxWidth(400);
+		malware = new Pane();
+		malware.setMinWidth(400);
+		malware.setMaxWidth(400);
 		
-		centerPane = new Pane();
-		centerPane.setMinWidth(600);
-		centerPane.getStyleClass().add("pane");
+		output = new Pane();
+		output.setMinWidth(600);
+		output.getStyleClass().add("pane");
 		
-		rightPane = new Pane();
-		rightPane.setMinWidth(600);
-		rightPane.setMaxWidth(600);
+		environment = new Pane();
+		environment.setMinWidth(600);
+		environment.setMaxWidth(600);
 		
-		bottomPane = new VBox(1);
-		bottomPane.setMinHeight(300);
-		bottomPane.setMaxHeight(300);
+		bottomPane = new Pane();
 		bottomPane.setId("bottom");
 		
 		this.setTop(topPane);
-		this.setLeft(leftPane);
-		this.setCenter(centerPane);
-		this.setRight(rightPane);
+		this.setLeft(malware);
+		this.setCenter(output);
+		this.setRight(environment);
 		this.setBottom(bottomPane);
 		
-		this.simulation = new Simulation();
-		this.simulator = new Simulator(this);
+		System.out.println("Welcome to xDemic!");
 	}
 
 	public void draw() {
-		System.out.println("Updating...");
 		// TODO draw based on the data available
-		this.bottomPane.getChildren().add(new Text("Updating..."));
-		// TODO give each class "simulation" to obtain the data
-		System.out.println("Done!");
-		this.bottomPane.getChildren().add(new Text("Done!"));
+		// TODO give each class "mainView" to obtain the data
+		malware.getChildren().clear();
+		output.getChildren().clear();
+		environment.getChildren().clear();
+		
+		malware.getChildren().add(new MalwarePane(this));
+		// TODO output.getChildren().add(new OutputPane(this));
+		environment.getChildren().add(new EnvironmentPane(this));
+		
+		System.out.println("GUI Refreshed");
 	}
 	
 	public Simulation getSimulation() {
@@ -61,4 +69,12 @@ public class MainView extends BorderPane {
 	public Simulator getSimulator() {
         return simulator;
     }
+	
+	public void setState(boolean state) {
+		this.state = state;
+	}
+	
+	public boolean getState() {
+		return state;
+	}
 }
