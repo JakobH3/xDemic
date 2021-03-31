@@ -40,6 +40,38 @@ public class Simulation {
 		}
 	}
 	
+	public double calculatePercentInf(ArrayList<Device> deviceList) 
+	{
+		double percent = 0;
+		int numInfected = 0;
+		
+		for(int i = 0; i < deviceList.size(); i++) {
+			if(deviceList.get(i).isInfected()) {
+			 numInfected++;	
+			}
+		}
+		
+		percent = 100 * (numInfected / deviceList.size());
+		
+		return percent;
+	}
+	
+	public double calculatePercentRecovered(ArrayList<Device> deviceList, Malware mal) //this returns the percentage of devices recovered from a specific malware 
+	{
+		double percent = 0;
+		int numRecovered = 0;
+		
+		for(int i = 0; i < deviceList.size(); i++) 
+		{
+			if(deviceList.get(i).getPatchedMalwareList().indexOf(mal) > 0) {
+				numRecovered++;
+			}
+		}
+		percent = 100 * (numRecovered / deviceList.size());
+		
+		return percent;
+	}
+	
 	public void centralized() {
 		// TODO
 	}
