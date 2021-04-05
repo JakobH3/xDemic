@@ -17,8 +17,8 @@ public class Device {
 		this.resistance=resistance;
 	}
 	
-	public void setId(int in) {
-		Id=in;
+	public void setId(int Id) {
+		this.Id=Id;
 	}
 	
 	public int getId() {
@@ -52,10 +52,6 @@ public class Device {
 	
 	public ArrayList<Malware> getMalware() {
 		return malwareList;
-	}
-		
-	public void initialInfect(Malware malware) {
-		malwareList.add(malware);
 	}
 	
 	public void infect(Malware malware) {
