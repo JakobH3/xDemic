@@ -7,10 +7,10 @@ public class MainView extends BorderPane {
 	private Simulation simulation;
 	private Simulator simulator;
 	
-	private Tools topPane;
-	private Pane malware;
+	private Tools toolbar;
+	private MalwarePane malware;
 	private Pane output;
-	private Pane environment;
+	private EnvironmentPane environment;
 	private Pane results;
 	
 	public static final boolean EDITING = false;
@@ -22,22 +22,19 @@ public class MainView extends BorderPane {
 		this.simulation = new Simulation();
 		this.simulator = new Simulator(this);
 		
-		topPane = new Tools(this);
+		toolbar = new Tools(this);
 		
-		malware = new Pane();
-		malware.setPrefWidth(400);
+		malware = new MalwarePane(this);
 		
 		output = new Pane();
 		output.setMinWidth(600);
-		output.getStyleClass().add("pane");
 		
-		environment = new Pane();
-		environment.setPrefWidth(600);
+		environment = new EnvironmentPane(this);
 		
 		results = new Pane();
-		results.setPrefHeight(200);
+		results.setMinHeight(200);
 		
-		this.setTop(topPane);
+		this.setTop(toolbar);
 		this.setLeft(malware);
 		this.setCenter(output);
 		this.setRight(environment);
@@ -46,18 +43,15 @@ public class MainView extends BorderPane {
 		System.out.println("Welcome to xDemic!");
 	}
 
-	public void draw() {
-		// TODO draw based on the data available
-		// TODO give each class "mainView" to obtain the data
-		malware.getChildren().clear();
-		output.getChildren().clear();
-		environment.getChildren().clear();
-		results.getChildren().clear();
-		
-		malware.getChildren().add(new MalwarePane(this));
-		// TODO output.getChildren().add(new OutputPane(this));
-		environment.getChildren().add(new EnvironmentPane(this));
-		// TODO results.getChildren().add(new ResultsPane(this));
+	public Pane getResults() {
+		return results;
+	}
+
+	public void draw() {		
+		malware.update();
+		// TODO output.update();
+		environment.update();
+		// TODO results.update();
 	}
 	
 	public Simulation getSimulation() {
@@ -74,5 +68,21 @@ public class MainView extends BorderPane {
 	
 	public boolean getState() {
 		return state;
+	}
+	
+	public Tools getToolbar() {
+		return toolbar;
+	}
+
+	public MalwarePane getMalware() {
+		return malware;
+	}
+
+	public Pane getOutput() {
+		return output;
+	}
+
+	public EnvironmentPane getEnvironment() {
+		return environment;
 	}
 }

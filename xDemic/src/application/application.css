@@ -20,12 +20,3 @@
 #toolbar .button:hover {
 	-fx-background-color: #5F5F5F;
 }
-
-.pane {
-	-fx-background-color: #3F3F3F;
-}
-
-#malwareList {
-	-fx-background-color: #4F4F4F;
-	-fx-padding: 10px;
-}

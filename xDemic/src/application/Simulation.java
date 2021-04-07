@@ -8,9 +8,9 @@ public class Simulation {
 	private ArrayList<Device> nodeList;
 	private ArrayList<Connection> connectionList;
 	private ArrayList<Malware> malwareList;
-	private double deviceMobilityFactor=1; // max of 1
-	private double centralMobilityFactor; // max of 1
-	private double nodeMobilityFactor; // max of 1
+	private double deviceMobilityFactor=1;	// max of 1
+	private double centralMobilityFactor=1;	// max of 1
+	private double nodeMobilityFactor=1;	// max of 1
 	
 	Random random = new Random();
 	
@@ -23,13 +23,20 @@ public class Simulation {
 	
 	public void step() {
 		// TODO update the data which will then be drawn
-		if(nodeList.size()==0) {
-			distributed();
-		} else if(nodeList.size()==1) {
-			centralized();
-		} else {
-			decentralized();
+		for(int i=0; i<deviceList.size(); i++) {
+			int k=0;
+			int l=0;
+			for(int j=0; j<connectionList.size(); j++) {
+				if(connectionList.get(j).getConnection().get(0) == deviceList.get(i)) k++;
+				if(connectionList.get(j).getConnection().get(1) == deviceList.get(i)) l++;
+			}
+			//a node has more than one input and more than one output
+			if(k>1 && l>1) nodeList.add(deviceList.get(i));
 		}
+		
+		if(nodeList.size()==0) distributed();
+		else if(nodeList.size()==1) centralized();
+		else decentralized();
 	}
 	
 	public void distributed() {
@@ -38,6 +45,24 @@ public class Simulation {
 				interact(connectionList.get(i).getConnection());
 			}
 		}
+	}
+	
+	public void centralized() {
+		// TODO
+	}
+	
+	public void decentralized() {
+		// TODO
+	}
+	
+	public void clear() {
+		deviceList.clear();
+		nodeList.clear();
+		connectionList.clear();
+		malwareList.clear();
+		deviceMobilityFactor = 1;
+		centralMobilityFactor = 1;
+		nodeMobilityFactor = 1;
 	}
 	
 	public double calculatePercentInf(ArrayList<Device> deviceList) 
@@ -72,14 +97,6 @@ public class Simulation {
 		return percent;
 	}
 	
-	public void centralized() {
-		// TODO
-	}
-	
-	public void decentralized() {
-		// TODO
-	}
-	
 	public void interact(ArrayList<Device> deviceList) {
 		ArrayList<Malware> device1Malware = deviceList.get(0).getMalware();
 		ArrayList<Malware> device2Malware = deviceList.get(1).getMalware();
@@ -98,8 +115,9 @@ public class Simulation {
 	}
 	
 	public void loadExample() {
+		clear();
 		for(int i=0; i<100; i++) {
-			deviceList.add(new Device(i, Integer.MAX_VALUE, i));
+			deviceList.add(new Device(i, Integer.MAX_VALUE));
 		}
 		
 		malwareList.add(new Malware("Example Malware", 100, Integer.MAX_VALUE));
