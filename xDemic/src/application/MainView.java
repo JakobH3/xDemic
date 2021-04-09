@@ -2,12 +2,13 @@ package application;
 
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 public class MainView extends BorderPane {
 	private Simulation simulation;
 	private Simulator simulator;
 	
-	private Tools toolbar;
+	private VBox tools;
 	private MalwarePane malware;
 	private Pane output;
 	private EnvironmentPane environment;
@@ -22,25 +23,31 @@ public class MainView extends BorderPane {
 		this.simulation = new Simulation();
 		this.simulator = new Simulator(this);
 		
-		toolbar = new Tools(this);
+		tools = new Tools(this);
+		tools.setId("menu");
 		
 		malware = new MalwarePane(this);
+		malware.setId("malware");
 		
 		output = new Pane();
-		output.setMinWidth(600);
+		output.setId("output");
 		
 		environment = new EnvironmentPane(this);
+		environment.setId("environment");
 		
 		results = new Pane();
-		results.setMinHeight(200);
+		results.setId("results");
 		
-		this.setTop(toolbar);
+		this.setTop(tools);
 		this.setLeft(malware);
 		this.setCenter(output);
 		this.setRight(environment);
 		this.setBottom(results);
 		
 		System.out.println("Welcome to xDemic!");
+		
+		widthProperty().addListener((l) -> {draw();});
+		heightProperty().addListener((l) -> {draw();});
 	}
 
 	public Pane getResults() {
@@ -70,8 +77,8 @@ public class MainView extends BorderPane {
 		return state;
 	}
 	
-	public Tools getToolbar() {
-		return toolbar;
+	public VBox getTools() {
+		return tools;
 	}
 
 	public MalwarePane getMalware() {

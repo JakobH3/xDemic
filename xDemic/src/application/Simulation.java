@@ -23,6 +23,8 @@ public class Simulation {
 	
 	public void step() {
 		// TODO update the data which will then be drawn
+		
+		// determine the number of nodes
 		for(int i=0; i<deviceList.size(); i++) {
 			int k=0;
 			int l=0;
@@ -30,7 +32,7 @@ public class Simulation {
 				if(connectionList.get(j).getConnection().get(0) == deviceList.get(i)) k++;
 				if(connectionList.get(j).getConnection().get(1) == deviceList.get(i)) l++;
 			}
-			//a node has more than one input and more than one output
+			// a node has more than one input and more than one output
 			if(k>1 && l>1) nodeList.add(deviceList.get(i));
 		}
 		
@@ -81,7 +83,7 @@ public class Simulation {
 		return percent;
 	}
 	
-	public double calculatePercentRecovered(ArrayList<Device> deviceList, Malware mal) //this returns the percentage of devices recovered from a specific malware 
+	public double calculatePercentRecovered(ArrayList<Device> deviceList, Malware mal) // this returns the percentage of devices recovered from a specific malware 
 	{
 		double percent = 0;
 		int numRecovered = 0;
@@ -101,13 +103,13 @@ public class Simulation {
 		ArrayList<Malware> device1Malware = deviceList.get(0).getMalware();
 		ArrayList<Malware> device2Malware = deviceList.get(1).getMalware();
 		
-		//transmission from device1 to device2
+		// transmission from device1 to device2
 		for(int i=0; i<device1Malware.size(); i++) {
-			//if device2 is not infected with device1's selected malware
+			// if device2 is not infected with device1's selected malware
 			if(!device2Malware.contains(device1Malware.get(i))) {
-				//if device2 is infected based on probability of device1's selected malware
+				// if device2 is infected based on probability of device1's selected malware
 				if(random.nextDouble()*100 <= device1Malware.get(i).getChanceInfection()) {
-					//infect device2 with device1's selected malware
+					// infect device2 with device1's selected malware
 					deviceList.get(1).infect(device1Malware.get(i));
 				}
 			}
@@ -120,7 +122,7 @@ public class Simulation {
 			deviceList.add(new Device(i, Integer.MAX_VALUE));
 		}
 		
-		malwareList.add(new Malware("Example Malware", 100, Integer.MAX_VALUE));
+		malwareList.add(new Malware("Example Malware", 10, Integer.MAX_VALUE));
 		
 		for(int i=0; i<deviceList.size()-1; i++) {
 			connectionList.add(new Connection(deviceList.get(i), deviceList.get(i+1)));

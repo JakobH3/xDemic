@@ -4,19 +4,23 @@
 	-fx-background-color: #2F2F2F;
 }
 
-#toolbar {
+#menu MenuBar {
+	-fx-background-color: #AFAFAF;
+	-fx-padding: 0px;
+}
+
+#menu ToolBar {
 	-fx-background-color: #4F4F4F;
 	-fx-padding: 0px;
 }
 
-#toolbar .button {
+#menu .button, Menu {
 	-fx-background-color: transparent;
 	-fx-text-fill: white;
-	-fx-pref-height: 25px;
 	-fx-background-radius: 0;
 	-fx-background-insets: 0,0,0,0,0;
 }
 
-#toolbar .button:hover {
+#menu .button:hover {
 	-fx-background-color: #5F5F5F;
 }

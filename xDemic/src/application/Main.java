@@ -12,7 +12,7 @@ public class Main extends Application {
 			MainView mainView = new MainView();
 			mainView.setId("mainView");
 			
-			Scene scene = new Scene(mainView, 1600, 800);
+			Scene scene = new Scene(mainView, 1200, 600);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			
 			stage.getIcons().add(new Image("file:logo.png"));

@@ -3,20 +3,20 @@ package application;
 import java.util.ArrayList;
 
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Circle;
 
 public class Device {
 	java.util.Random random = new java.util.Random();
 	
-	private ArrayList<Malware> malwareList = new ArrayList<Malware>(); //list of all malware active on the device
-	private ArrayList<Malware> patchedMalwareList = new ArrayList<Malware>(); //list of which malware have been patched
-	private double resistance; //probability of a device resisting malware
-	private int timeToPatch; //number of time units until the malware is patched
+	private ArrayList<Malware> malwareList = new ArrayList<Malware>(); // list of all malware active on the device
+	private ArrayList<Malware> patchedMalwareList = new ArrayList<Malware>(); // list of which malware have been patched
+	private double resistance; // probability of a device resisting malware
+	private int timeToPatch; // number of time units until the malware is patched
 	
 	private double x=-1;
 	private double y=-1;
 	private double size;
-	private Rectangle r;
+	private Circle c;
 	
 	public Device(double resistance, int timeToPatch) {
 		this.resistance=resistance;
@@ -53,9 +53,9 @@ public class Device {
 	}
 	
 	public void infect(Malware malware) {
-		//make sure device is not already infected
+		// make sure device is not already infected
 		if(!malwareList.contains(malware) && !patchedMalwareList.contains(malware)) {
-			//check if device will resist the attack
+			// check if device will resist the attack
 			if(resistance < 100*random.nextDouble()) {
 				malwareList.add(malware);
 			}
@@ -88,18 +88,17 @@ public class Device {
 	}
 	
 	public void draw() {
-		r.setX(x);
-		r.setY(y);
+		c.setCenterX(x);
+		c.setCenterY(y);
 		
-		r.setWidth(size);
-		r.setHeight(size);
+		c.setRadius(size);
 		
 		if(isInfected()) {
-			r.setFill(Color.RED);
+			c.setFill(Color.RED);
 		} else if(isPatched()) {
-			r.setFill(Color.GREEN);
+			c.setFill(Color.GREEN);
 		} else {
-			r.setFill(Color.WHITE);
+			c.setFill(Color.WHITE);
 		}
 	}
 
@@ -122,8 +121,12 @@ public class Device {
 	public void setSize(double size) {
 		this.size = size;
 	}
+	
+	public Circle getC() {
+		return this.c;
+	}
 
-	public void setR(Rectangle r) {
-		this.r = r;
+	public void setC(Circle c) {
+		this.c = c;
 	}
 }
