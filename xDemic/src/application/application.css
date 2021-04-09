@@ -24,3 +24,11 @@
 #menu .button:hover {
 	-fx-background-color: #5F5F5F;
 }
+
+MalwarePane {
+	-fx-background-color: transparent;
+}
+
+MalwarePane > .viewport {
+	-fx-background-color: #1F1F1F;
+}

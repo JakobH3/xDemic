@@ -17,8 +17,6 @@ import javafx.stage.Stage;
 public class Tools extends VBox {
 	private MainView mainView;
 	
-	private ImageView icon;
-	
 	public Tools(MainView mainView) {
 		this.mainView=mainView;
 		
@@ -88,7 +86,6 @@ public class Tools extends VBox {
 	}
 	
 	private void handleHelp(ActionEvent actionEvent) {
-		System.out.println("Help!");
 		VBox helpList = new VBox();
 		helpList.setSpacing(10);
 		helpList.getChildren().add(new Text("Shift drag to move devices"));
