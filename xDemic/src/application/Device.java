@@ -35,8 +35,11 @@ public class Device {
 		this.timeToPatch=timeToPatch;
 	}
 	
-	public ArrayList<Malware> getPatchedMalwareList()
-	{
+	public ArrayList<Malware> getMalwareList() {
+		return malwareList;
+	}
+	
+	public ArrayList<Malware> getPatchedMalwareList() {
 		return patchedMalwareList;
 	}
 	

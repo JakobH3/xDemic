@@ -73,8 +73,9 @@ public class MainView extends BorderPane {
 		this.state = state;
 	}
 	
-	public boolean getState() {
-		return state;
+	public boolean editing() {
+		if(state == EDITING) return true;
+		else return false;
 	}
 	
 	public VBox getTools() {

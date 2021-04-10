@@ -1,11 +1,9 @@
 package application;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Cursor;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -18,7 +16,6 @@ public class EnvironmentPane extends Pane {
 	private MainView mainView;
 	
 	private Pane sandbox;
-	private Pane configWindow;
 	
 	private int paneSize=600;
 	private int gridSize=0;
@@ -85,8 +82,8 @@ public class EnvironmentPane extends Pane {
 		    		c.setStrokeWidth(5);
 		    		c.setStroke(Color.BLACK);
 		    		c.toFront();
-	            } else if (e.isControlDown()) {
-	                // prepare to make connection
+		    	} else if (e.isControlDown()) {
+	            	// prepare to make connection
 	            	tempDevice = device;
 	            	tempLine = new Line();
 	            	sandbox.getChildren().add(tempLine);
@@ -146,8 +143,20 @@ public class EnvironmentPane extends Pane {
 			
 			// device clicked
 			c.setOnMouseClicked((e) -> {
-				// TODO bring up menu to infect or patch
+				if(e.getButton() == MouseButton.PRIMARY) {
+					// TODO clear previous selection and select
+				} else if(e.getButton() == MouseButton.SECONDARY) {
+					// TODO open menu to infect or patch
+					/*ContextMenu modify = new ContextMenu();
+					modify.setAnchorX(e.getX());
+					modify.setAnchorY(e.getY());
+					modify.getItems().add(new MenuItem("Test"));*/
+				} else if(e.isShiftDown()) {
+					// TODO add to selection
+				}
 			});
+			
+			// TODO create KeyPress to check for delete then delete selected items
 			
 			device.setX(x);
 			device.setY(y);
@@ -187,14 +196,9 @@ public class EnvironmentPane extends Pane {
 	}
 	
 	public void add() {
-		if(mainView.getState() == MainView.EDITING) {
-			configWindow = new Pane();
-			
-			Scene scene = new Scene(configWindow);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			
+		if(mainView.editing()) {
 			VBox options = new VBox();
-			options.setSpacing(5);
+			options.getStyleClass().add("options");
 			
 			Text resistanceLabel = new Text("Resistance");
 			Slider resistance = new Slider(0, 100, 10);
@@ -216,29 +220,22 @@ public class EnvironmentPane extends Pane {
 			number.setSnapToTicks(true);
 			
 			Button apply = new Button("Apply");
-			apply.setOnAction(new EventHandler<ActionEvent>() {
-				@Override
-				public void handle(ActionEvent e) {
-					for(int i=0; i<number.getValue(); i++) {
-						mainView.getSimulation().getDeviceList().add(new Device(resistance.getValue(), (int)timeToPatch.getValue()));
-					}
-					mainView.setCenter(mainView.getOutput());
-					mainView.draw();
+			apply.setOnAction((e) -> {
+				for(int i=0; i<number.getValue(); i++) {
+					mainView.getSimulation().getDeviceList().add(new Device(resistance.getValue(), (int)timeToPatch.getValue()));
 				}
+				mainView.setCenter(mainView.getOutput());
+				mainView.draw();
 			});
 		
 			Button cancel = new Button("Cancel");
-			cancel.setOnAction(new EventHandler<ActionEvent>() {
-				@Override
-				public void handle(ActionEvent e) {
-					mainView.setCenter(mainView.getOutput());
-					update();
-				}
+			cancel.setOnAction((e) -> {
+				mainView.setCenter(mainView.getOutput());
+				mainView.draw();
 			});
 			
 			options.getChildren().addAll(resistanceLabel, resistance, timeToPatchLabel, timeToPatch, numberLabel, number, apply, cancel);
-			configWindow.getChildren().add(options);
-			mainView.setCenter(configWindow);
+			mainView.setCenter(options);
 		}
 	}
 	

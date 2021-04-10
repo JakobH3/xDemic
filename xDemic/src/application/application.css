@@ -32,3 +32,15 @@ MalwarePane {
 MalwarePane > .viewport {
 	-fx-background-color: #1F1F1F;
 }
+
+.malware {
+	-fx-padding: 5px;
+}
+
+.malware Text {
+	-fx-fill: white;
+}
+
+.options {
+	-fx-background-color: lightgray;
+}
