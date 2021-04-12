@@ -37,9 +37,9 @@ public class Tools extends VBox {
 				MenuItem save = new MenuItem("Save");
 				save.setOnAction(this::handleSave);
 					
-				MenuItem clear = new MenuItem("Clear");
-				clear.setOnAction(this::handleClear);
-			file.getItems().addAll(add, open, save, clear);
+				MenuItem reset = new MenuItem("Reset");
+				reset.setOnAction(this::handleReset);
+			file.getItems().addAll(add, open, save, reset);
 			
 			Menu help = new Menu("Help");
 				MenuItem helpDevices = new MenuItem("Devices");
@@ -89,9 +89,9 @@ public class Tools extends VBox {
 		}
 	}
 	
-	private void handleClear(ActionEvent e) {
+	private void handleReset(ActionEvent e) {
 		if(mainView.editing()) {
-			mainView.getSimulation().clear();
+			mainView.getSimulator().reset();
 			mainView.draw();
 		}
 	}

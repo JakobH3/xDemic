@@ -58,10 +58,7 @@ public class Device {
 	public void infect(Malware malware) {
 		// make sure device is not already infected
 		if(!malwareList.contains(malware) && !patchedMalwareList.contains(malware)) {
-			// check if device will resist the attack
-			if(resistance < 100*random.nextDouble()) {
-				malwareList.add(malware);
-			}
+			malwareList.add(malware);
 		}
 	}
 	
@@ -126,7 +123,7 @@ public class Device {
 	}
 	
 	public Circle getC() {
-		return this.c;
+		return c;
 	}
 
 	public void setC(Circle c) {

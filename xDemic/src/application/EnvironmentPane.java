@@ -2,6 +2,8 @@ package application;
 
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.Slider;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
@@ -145,14 +147,51 @@ public class EnvironmentPane extends Pane {
 			c.setOnMouseClicked((e) -> {
 				if(e.getButton() == MouseButton.PRIMARY) {
 					// TODO clear previous selection and select
+					/*for(int j=0; j<mainView.getSimulation().getDeviceList().size(); j++) {
+						mainView.getSimulation().getDeviceList().get(j).setSelected(false);
+					}
+					device.setSelected(true);
+					device.draw();
+					mainView.draw();*/
 				} else if(e.getButton() == MouseButton.SECONDARY) {
-					// TODO open menu to infect or patch
-					/*ContextMenu modify = new ContextMenu();
-					modify.setAnchorX(e.getX());
-					modify.setAnchorY(e.getY());
-					modify.getItems().add(new MenuItem("Test"));*/
+					// TODO open menu to infect, patch, or delete
+					ContextMenu contextMenu = new ContextMenu();
+					MenuItem menuItem;
+					for(int j=0; j<mainView.getSimulation().getMalwareList().size(); j++) {
+						int id = j;
+						if(device.getMalwareList().contains(mainView.getSimulation().getMalwareList().get(id))) {
+							menuItem = new MenuItem("Patch " + mainView.getSimulation().getMalwareList().get(id).getName());
+							menuItem.setOnAction((ee) -> {
+								device.patch(mainView.getSimulation().getMalwareList().get(id));
+								mainView.draw();
+							});
+							contextMenu.getItems().add(menuItem);
+						} else if(!device.getMalwareList().contains(mainView.getSimulation().getMalwareList().get(id)) && !device.getPatchedMalwareList().contains(mainView.getSimulation().getMalwareList().get(id))) {
+							menuItem = new MenuItem("Infect with " + mainView.getSimulation().getMalwareList().get(id).getName());
+							menuItem.setOnAction((ee) -> {
+								device.infect(mainView.getSimulation().getMalwareList().get(id));
+								mainView.draw();
+							});
+							contextMenu.getItems().add(menuItem);
+						}
+					}
+					menuItem = new MenuItem("Delete");
+					menuItem.setOnAction((ee) -> {
+						for(int k=0; k<mainView.getSimulation().getConnectionList().size(); k++) {
+							if(mainView.getSimulation().getConnectionList().get(k).getConnection().contains(device)) {
+								mainView.getSimulation().getConnectionList().remove(k);
+								k = k-1;
+							}
+						}
+						mainView.getSimulation().getDeviceList().remove(device);
+						mainView.draw();
+					});
+					contextMenu.getItems().add(menuItem);
+					contextMenu.show(c, e.getScreenX(), e.getScreenY());
 				} else if(e.isShiftDown()) {
 					// TODO add to selection
+					/*device.setSelected(true);
+					device.draw();*/
 				}
 			});
 			

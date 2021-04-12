@@ -19,16 +19,25 @@ public class Simulator {
     }
 
     private void doStep(ActionEvent actionEvent) {
-        simulation.step();
+    	simulation.step();
         mainView.draw();
+    }
+    
+    public void reset() {
+    	simulation.clear();
+    	frameRate=60;
+    	this.timeline = new Timeline(new KeyFrame(Duration.millis(1000/frameRate), this::doStep));
+    	
     }
 
     public void start() {
+		System.out.println("> Simulator started.");
 		timeline.play();
 		mainView.setState(MainView.SIMULATING);
     }
 
     public void stop() {
+		System.out.println("> Simulator stopped.");
         timeline.stop();
         mainView.setState(MainView.EDITING);
     }
