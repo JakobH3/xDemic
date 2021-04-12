@@ -67,7 +67,7 @@ public class Simulation {
 			transmit(d1, d2, ddMobility);
 		}
 	}
-	
+
 	public void transmit(Device d1, Device d2, double mobility) {
 		ArrayList<Malware> d1Malware = d1.getMalware();
 		ArrayList<Malware> d2Malware = d2.getMalware();
@@ -105,35 +105,29 @@ public class Simulation {
 		deviceList.get(0).infect(malwareList.get(0));
 	}
 	
-	public double calculatePercentInf(ArrayList<Device> deviceList) 
-	{
+	public double calculatePercentInf(ArrayList<Device> deviceList) {
 		double percent = 0;
 		int numInfected = 0;
 		
 		for(int i = 0; i < deviceList.size(); i++) {
 			if(deviceList.get(i).isInfected()) {
-			 numInfected++;	
+				numInfected++;	
 			}
 		}
-		
 		percent = 100 * (numInfected / deviceList.size());
-		
 		return percent;
 	}
 	
-	public double calculatePercentRecovered(ArrayList<Device> deviceList, Malware mal) // this returns the percentage of devices recovered from a specific malware 
-	{
+	public double calculatePercentRecovered(ArrayList<Device> deviceList, Malware mal) {
 		double percent = 0;
 		int numRecovered = 0;
 		
-		for(int i = 0; i < deviceList.size(); i++) 
-		{
+		for(int i = 0; i < deviceList.size(); i++) {
 			if(deviceList.get(i).getPatchedMalwareList().indexOf(mal) > 0) {
 				numRecovered++;
 			}
 		}
 		percent = 100 * (numRecovered / deviceList.size());
-		
 		return percent;
 	}
 	
@@ -167,5 +161,29 @@ public class Simulation {
 
 	public void setMalwareList(ArrayList<Malware> malwareList) {
 		this.malwareList = malwareList;
+	}
+	
+	public double getDdMobility() {
+		return ddMobility;
+	}
+
+	public void setDdMobility(double ddMobility) {
+		this.ddMobility = ddMobility;
+	}
+
+	public double getDnMobility() {
+		return dnMobility;
+	}
+
+	public void setDnMobility(double dnMobility) {
+		this.dnMobility = dnMobility;
+	}
+
+	public double getNnMobility() {
+		return nnMobility;
+	}
+
+	public void setNnMobility(double nnMobility) {
+		this.nnMobility = nnMobility;
 	}
 }

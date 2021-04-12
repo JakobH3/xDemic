@@ -21,13 +21,12 @@ public class Simulator {
     private void doStep(ActionEvent actionEvent) {
     	simulation.step();
         mainView.draw();
+        System.out.println("> Frame done.");
     }
     
     public void reset() {
-    	simulation.clear();
-    	frameRate=60;
     	this.timeline = new Timeline(new KeyFrame(Duration.millis(1000/frameRate), this::doStep));
-    	
+    	this.timeline.setCycleCount(Timeline.INDEFINITE);
     }
 
     public void start() {
