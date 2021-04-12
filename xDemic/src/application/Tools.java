@@ -98,10 +98,11 @@ public class Tools extends VBox {
 	
 	private void handleReset(ActionEvent actionEvent) {
 		if(mainView.editing()) {
-			mainView.getSimulation().clear();
+			mainView.getSimulation().reset();
 			mainView.getSimulator().setFrameRate(60);
 			mainView.getSimulator().reset();
 			mainView.draw();
+			System.out.println("> Simulation reset.");
 		} else {
 			System.out.println("# Simulation in progress!");
 		}
@@ -109,9 +110,11 @@ public class Tools extends VBox {
 	
 	private void handleHelp(ActionEvent actionEvent) {
 		VBox helpList = new VBox();
-		helpList.setSpacing(10);
-		helpList.getChildren().add(new Text("Shift drag to move devices"));
-		helpList.getChildren().add(new Text("Ctrl drag to connect devices"));
+		helpList.getStyleClass().add("options");
+		
+		helpList.getChildren().add(new Text("Shift+drag to move devices."));
+		helpList.getChildren().add(new Text("Ctrl+drag to connect devices."));
+		helpList.getChildren().add(new Text("Right click to infect, patch, or delete devices."));
 		
 		Scene helpScene = new Scene(helpList, 400, 400);
 		
@@ -141,6 +144,7 @@ public class Tools extends VBox {
 	private void handleConfig(ActionEvent actionEvent) {
 		if(mainView.editing()) {
 			// TODO create simulation configuration window
+			// TODO use changeListeners on ALL sliders??
 			
 			VBox options = new VBox();
 			options.getStyleClass().add("options");
@@ -161,10 +165,12 @@ public class Tools extends VBox {
 			nn.setShowTickMarks(true);
 			
 			Text fpsLabel = new Text("Frames per second");
-			Slider fps = new Slider(1, 100, 10);
+			Slider fps = new Slider(1, 60, 60);
 			fps.setShowTickLabels(true);
 			fps.setShowTickMarks(true);
 			fps.setSnapToTicks(true);
+			fps.setMajorTickUnit(59);
+			fps.setMinorTickCount(59);
 			
 			Button apply = new Button("Apply");
 			apply.setOnAction((e) -> {

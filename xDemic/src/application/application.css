@@ -14,7 +14,7 @@
 	-fx-padding: 0px;
 }
 
-#menu .button, Menu {
+#menu Button, Menu {
 	-fx-background-color: transparent;
 	-fx-text-fill: white;
 	-fx-background-radius: 0;
@@ -34,7 +34,7 @@ MalwarePane > .viewport {
 }
 
 .malware {
-	-fx-padding: 5px;
+	-fx-padding: 20px;
 }
 
 .malware Text {
@@ -42,5 +42,28 @@ MalwarePane > .viewport {
 }
 
 .options {
+	-fx-background-color: transparent;
+	-fx-padding: 20px;
+}
+
+.options Text {
+	-fx-fill: white;
+}
+
+.options Button {
+	-fx-background-color: transparent;
+	-fx-text-fill: white;
+	-fx-background-radius: 0;
+	-fx-background-insets: 0,0,0,0,0;
+}
+
+.options Button:hover {
+	-fx-background-color: #5F5F5F;
+}
+
+.options TextField {
 	-fx-background-color: lightgray;
+	-fx-background-radius: 0;
+	-fx-background-insets: 0,0,0,0,0;
+	-fx-text-fill: #2F2F2F;
 }

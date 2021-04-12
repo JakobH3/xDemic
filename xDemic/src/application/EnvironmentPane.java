@@ -110,10 +110,10 @@ public class EnvironmentPane extends Pane {
 	            	tempLine.startXProperty().bind(tempDevice.getC().centerXProperty());
 	            	tempLine.startYProperty().bind(tempDevice.getC().centerYProperty());
 	    		    
-					if(e.getX() > squareSize/2 && e.getX() < paneSize-squareSize/2) {
+					if(e.getX() > 0 && e.getX() < paneSize) {
 						tempLine.setEndX(e.getX());
 					}
-					if(e.getY() > squareSize/2 && e.getY() < paneSize-squareSize/2) {
+					if(e.getY() > 0 && e.getY() < paneSize) {
 						tempLine.setEndY(e.getY());
 					}
 	    		    

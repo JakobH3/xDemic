@@ -42,7 +42,7 @@ public class Simulation {
 		}
 	}
 	
-	public void clear() {
+	public void reset() {
 		deviceList.clear();
 		nodeList.clear();
 		connectionList.clear();
@@ -91,7 +91,7 @@ public class Simulation {
 	}
 	
 	public void loadExample() {
-		clear();
+		reset();
 		for(int i=0; i<100; i++) {
 			deviceList.add(new Device(i, Integer.MAX_VALUE));
 		}

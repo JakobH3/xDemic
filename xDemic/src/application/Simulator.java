@@ -21,7 +21,6 @@ public class Simulator {
     private void doStep(ActionEvent actionEvent) {
     	simulation.step();
         mainView.draw();
-        System.out.println("> Frame done.");
     }
     
     public void reset() {
@@ -30,7 +29,7 @@ public class Simulator {
     }
 
     public void start() {
-		System.out.println("> Simulator started.");
+		System.out.println("> Simulator started at " + frameRate + " frames per second.");
 		timeline.play();
 		mainView.setState(MainView.SIMULATING);
     }
