@@ -1,11 +1,14 @@
 package application;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Slider;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -236,31 +239,48 @@ public class EnvironmentPane extends Pane {
 	
 	public void add() {
 		if(mainView.editing()) {
-			VBox options = new VBox();
+			VBox options = new VBox(10);
 			options.getStyleClass().add("options");
 			
-			Text resistanceLabel = new Text("Resistance");
-			Slider resistance = new Slider(0, 100, 10);
-			resistance.setShowTickLabels(true);
-			resistance.setShowTickMarks(true);
+			double resistanceDefault=50, timeToPatchDefault=100, quantityDefault=1;
 			
-			Text timeToPatchLabel = new Text("Time to Patch");
-			Slider timeToPatch = new Slider(0, 100, 10);
-			timeToPatch.setShowTickLabels(true);
-			timeToPatch.setShowTickMarks(true);
+			Text resistanceLabel = new Text("Resistance to infection is ");
+			Text resistanceValue = new Text(String.format("%.1f", resistanceDefault));
+			Slider resistance = new Slider(0, 100, resistanceDefault);
+			resistance.valueProperty().addListener(new ChangeListener<Number>() {
+				public void changed(ObservableValue <? extends Number > observable, Number oldValue, Number newValue) {
+					resistanceValue.setText(String.format("%.1f", newValue) + "%");
+				}
+			});
+			
+			Text timeToPatchLabel = new Text("Patches will be applied after ");
+			Text timeToPatchValue = new Text(String.format("%.0f", timeToPatchDefault));
+			Text timeToPatchLabel2 = new Text(" frames following patch release");
+			Slider timeToPatch = new Slider(0, 3600, timeToPatchDefault);
+			timeToPatch.setMajorTickUnit(1);
+			timeToPatch.setMinorTickCount(0);
 			timeToPatch.setSnapToTicks(true);
+			timeToPatch.valueProperty().addListener(new ChangeListener<Number>() {
+				public void changed(ObservableValue <? extends Number > observable, Number oldValue, Number newValue) {
+					timeToPatchValue.setText(String.format("%.0f", newValue));
+				}
+			});
 			
-			Text numberLabel = new Text("Number to add");
-			Slider number = new Slider(1, 10, 1);
-			number.setShowTickLabels(true);
-			number.setShowTickMarks(true);
-			number.setMajorTickUnit(1);
-			number.setMinorTickCount(0);
-			number.setSnapToTicks(true);
+			Text quantityLabel = new Text("Quantity of devices to be added is ");
+			Text quantityValue = new Text(String.format("%.0f", quantityDefault));
+			Slider quantity = new Slider(1, 100, quantityDefault);
+			quantity.setMajorTickUnit(1);
+			quantity.setMinorTickCount(0);
+			quantity.setSnapToTicks(true);
+			quantity.valueProperty().addListener(new ChangeListener<Number>() {
+				public void changed(ObservableValue <? extends Number > observable, Number oldValue, Number newValue) {
+					quantityValue.setText(String.format("%.0f", newValue));
+				}
+			});
 			
 			Button apply = new Button("Apply");
 			apply.setOnAction((e) -> {
-				for(int i=0; i<number.getValue(); i++) {
+				for(int i=0; i<(int) quantity.getValue(); i++) {
 					mainView.getSimulation().getDeviceList().add(new Device(resistance.getValue(), (int)timeToPatch.getValue()));
 				}
 				mainView.setCenter(mainView.getOutput());
@@ -273,7 +293,7 @@ public class EnvironmentPane extends Pane {
 				mainView.draw();
 			});
 			
-			options.getChildren().addAll(resistanceLabel, resistance, timeToPatchLabel, timeToPatch, numberLabel, number, apply, cancel);
+			options.getChildren().addAll(new HBox(resistanceLabel, resistanceValue), resistance, new HBox(timeToPatchLabel, timeToPatchValue, timeToPatchLabel2), timeToPatch, new HBox(quantityLabel, quantityValue), quantity, new HBox(apply, cancel));
 			mainView.setCenter(options);
 		}
 	}

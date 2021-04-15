@@ -1,28 +1,17 @@
 /* ignore errors and syntax in here, dont know why they are here but it works! */
 
-#mainView {
+MainView {
 	-fx-background-color: #2F2F2F;
 }
 
-#menu MenuBar {
+MenuBar {
 	-fx-background-color: #AFAFAF;
 	-fx-padding: 0px;
 }
 
-#menu ToolBar {
+ToolBar {
 	-fx-background-color: #4F4F4F;
 	-fx-padding: 0px;
-}
-
-#menu Button, Menu {
-	-fx-background-color: transparent;
-	-fx-text-fill: white;
-	-fx-background-radius: 0;
-	-fx-background-insets: 0,0,0,0,0;
-}
-
-#menu .button:hover {
-	-fx-background-color: #5F5F5F;
 }
 
 MalwarePane {
@@ -41,29 +30,52 @@ MalwarePane > .viewport {
 	-fx-fill: white;
 }
 
+EnvironmentPane {
+	-fx-background-color: #1F1F1F;
+}
+
+InfoPane {
+	-fx-background-color: #3F3F3F;
+}
+
 .options {
 	-fx-background-color: transparent;
 	-fx-padding: 20px;
 }
 
-.options Text {
+Text {
 	-fx-fill: white;
 }
 
-.options Button {
+TextField {
+	-fx-background-color: #282828;
+	-fx-text-fill: white;
+}
+
+Slider {
+	
+}
+
+Slider > .track {
+	-fx-background-color: #282828;
+	-fx-pref-height: 2px;
+}
+
+Slider > .thumb {
+	-fx-background-color: white;
+	-fx-pref-height: 10px;
+	-fx-pref-width: 10px;
+	-fx-background-radius: 5px;
+	-fx-background-insets: 0;
+}
+
+Button {
 	-fx-background-color: transparent;
 	-fx-text-fill: white;
 	-fx-background-radius: 0;
 	-fx-background-insets: 0,0,0,0,0;
 }
 
-.options Button:hover {
+Button:hover {
 	-fx-background-color: #5F5F5F;
-}
-
-.options TextField {
-	-fx-background-color: lightgray;
-	-fx-background-radius: 0;
-	-fx-background-insets: 0,0,0,0,0;
-	-fx-text-fill: #2F2F2F;
 }

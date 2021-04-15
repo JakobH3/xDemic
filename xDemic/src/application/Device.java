@@ -56,7 +56,7 @@ public class Device {
 	}
 	
 	public void infect(Malware malware) {
-		// make sure device is not already infected
+		// make sure device is not already infected or patched
 		if(!malwareList.contains(malware) && !patchedMalwareList.contains(malware)) {
 			malwareList.add(malware);
 		}
@@ -65,9 +65,8 @@ public class Device {
 	public void patch(Malware malware) {
 		if(malwareList.contains(malware)) {
 			malwareList.remove(malware);
-			patchedMalwareList.add(malware);
 		}
-		
+		patchedMalwareList.add(malware);
 	}
 	
 	public boolean isPatched() {

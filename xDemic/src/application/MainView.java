@@ -1,18 +1,16 @@
 package application;
 
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 
 public class MainView extends BorderPane {
 	private Simulation simulation;
 	private Simulator simulator;
 	
-	private VBox tools;
+	private Tools tools;
 	private MalwarePane malware;
-	private Pane output;
+	private OutputPane output;
 	private EnvironmentPane environment;
-	private Pane results;
+	private InfoPane info;
 	
 	public static final boolean EDITING = false;
     public static final boolean SIMULATING = true;
@@ -20,7 +18,7 @@ public class MainView extends BorderPane {
     private boolean state = EDITING;
 	
 	public MainView() {
-		this.simulation = new Simulation();
+		this.simulation = new Simulation(this);
 		this.simulator = new Simulator(this);
 		
 		tools = new Tools(this);
@@ -29,20 +27,20 @@ public class MainView extends BorderPane {
 		malware = new MalwarePane(this);
 		malware.setId("malware");
 		
-		output = new Pane();
+		output = new OutputPane(this);
 		output.setId("output");
 		
 		environment = new EnvironmentPane(this);
 		environment.setId("environment");
 		
-		results = new Pane();
-		results.setId("results");
+		info = new InfoPane(this);
+		info.setId("info");
 		
 		this.setTop(tools);
 		this.setLeft(malware);
 		this.setCenter(output);
 		this.setRight(environment);
-		this.setBottom(results);
+		this.setBottom(info);
 		
 		System.out.println("Welcome to xDemic!");
 		
@@ -50,15 +48,11 @@ public class MainView extends BorderPane {
 		heightProperty().addListener((l) -> {draw();});
 	}
 
-	public Pane getResults() {
-		return results;
-	}
-
 	public void draw() {		
 		malware.update();
-		// TODO output.update();
+		output.update();
 		environment.update();
-		// TODO results.update();
+		info.update();
 	}
 	
 	public Simulation getSimulation() {
@@ -78,7 +72,7 @@ public class MainView extends BorderPane {
 		else return false;
 	}
 	
-	public VBox getTools() {
+	public Tools getTools() {
 		return tools;
 	}
 
@@ -86,11 +80,15 @@ public class MainView extends BorderPane {
 		return malware;
 	}
 
-	public Pane getOutput() {
+	public OutputPane getOutput() {
 		return output;
 	}
 
 	public EnvironmentPane getEnvironment() {
 		return environment;
+	}
+
+	public InfoPane getInfo() {
+		return info;
 	}
 }

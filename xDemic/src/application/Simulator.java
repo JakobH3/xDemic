@@ -10,6 +10,7 @@ public class Simulator {
     private Simulation simulation;
     private Timeline timeline;
     private int frameRate=60;
+    private int frame=0;
 
     public Simulator(MainView mainView) {
         this.mainView = mainView;
@@ -21,11 +22,13 @@ public class Simulator {
     private void doStep(ActionEvent actionEvent) {
     	simulation.step();
         mainView.draw();
+        frame++;
     }
     
     public void reset() {
     	this.timeline = new Timeline(new KeyFrame(Duration.millis(1000/frameRate), this::doStep));
     	this.timeline.setCycleCount(Timeline.INDEFINITE);
+    	frame=0;
     }
 
     public void start() {
@@ -46,5 +49,9 @@ public class Simulator {
     
     public void setFrameRate(int frameRate) {
     	this.frameRate = frameRate;
+    }
+    
+    public int getFrame() {
+    	return frame;
     }
 }

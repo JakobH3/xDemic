@@ -1,5 +1,7 @@
 package application;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -10,6 +12,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -31,8 +34,8 @@ public class Tools extends VBox {
 				add.getItems().addAll(malware, device);
 				
 				Menu open = new Menu("Open");
-					MenuItem ex = new MenuItem("Example 1");
-					ex.setOnAction(this::handleLoad);
+					MenuItem ex = new MenuItem("Random");
+					ex.setOnAction(this::handleOpen);
 				open.getItems().addAll(ex);
 				
 				MenuItem save = new MenuItem("Save");
@@ -87,7 +90,7 @@ public class Tools extends VBox {
 		}
 	}
 	
-	private void handleLoad(ActionEvent actionEvent) {
+	private void handleOpen(ActionEvent actionEvent) {
 		if(mainView.editing()) {
 			mainView.getSimulation().loadExample();
 			mainView.draw();
@@ -142,35 +145,49 @@ public class Tools extends VBox {
     }
 	
 	private void handleConfig(ActionEvent actionEvent) {
-		if(mainView.editing()) {
-			// TODO create simulation configuration window
-			// TODO use changeListeners on ALL sliders??
-			
-			VBox options = new VBox();
+		if(mainView.editing()) {			
+			VBox options = new VBox(10);
 			options.getStyleClass().add("options");
 			
-			Text ddLabel = new Text("Device to Device Mobility Factor");
-			Slider dd = new Slider(0, 100, 10);
-			dd.setShowTickLabels(true);
-			dd.setShowTickMarks(true);
+			Text ddLabel = new Text("The multiplier for two connected devices interacting is ");
+			Text ddValue = new Text(String.format("%.2f", mainView.getSimulation().getDdMobility()));
+			Slider dd = new Slider(0, 1, mainView.getSimulation().getDdMobility());
+			dd.valueProperty().addListener(new ChangeListener<Number>() {
+				public void changed(ObservableValue <? extends Number > observable, Number oldValue, Number newValue) {
+					ddValue.setText(String.format("%.2f", newValue));
+				}
+			});
 			
-			Text dnLabel = new Text("Device to Node Mobility Factor");
-			Slider dn = new Slider(0, 100, 10);
-			dn.setShowTickLabels(true);
-			dn.setShowTickMarks(true);
+			Text dnLabel = new Text("The multiplier for a device and node interacting is ");
+			Text dnValue = new Text(String.format("%.2f", mainView.getSimulation().getDnMobility()));
+			Slider dn = new Slider(0, 1, mainView.getSimulation().getDnMobility());
+			dn.valueProperty().addListener(new ChangeListener<Number>() {
+				public void changed(ObservableValue <? extends Number > observable, Number oldValue, Number newValue) {
+					dnValue.setText(String.format("%.2f", newValue));
+				}
+			});
 			
-			Text nnLabel = new Text("Node to Node Mobility Factor");
-			Slider nn = new Slider(0, 100, 10);
-			nn.setShowTickLabels(true);
-			nn.setShowTickMarks(true);
+			Text nnLabel = new Text("The multiplier for two connected nodes interacting is ");
+			Text nnValue = new Text(String.format("%.2f", mainView.getSimulation().getNnMobility()));
+			Slider nn = new Slider(0, 1, mainView.getSimulation().getNnMobility());
+			nn.valueProperty().addListener(new ChangeListener<Number>() {
+				public void changed(ObservableValue <? extends Number > observable, Number oldValue, Number newValue) {
+					nnValue.setText(String.format("%.2f", newValue));
+				}
+			});
 			
-			Text fpsLabel = new Text("Frames per second");
-			Slider fps = new Slider(1, 60, 60);
-			fps.setShowTickLabels(true);
-			fps.setShowTickMarks(true);
+			Text fpsLabel = new Text("Simulation will run at ");
+			Text fpsValue = new Text(String.format("%d", mainView.getSimulator().getFrameRate()));
+			Text fpsLabel2 = new Text(" frames per second");
+			Slider fps = new Slider(1, 60, mainView.getSimulator().getFrameRate());
+			fps.setMajorTickUnit(1);
+			fps.setMinorTickCount(0);
 			fps.setSnapToTicks(true);
-			fps.setMajorTickUnit(59);
-			fps.setMinorTickCount(59);
+			fps.valueProperty().addListener(new ChangeListener<Number>() {
+				public void changed(ObservableValue <? extends Number > observable, Number oldValue, Number newValue) {
+					fpsValue.setText(String.format("%.0f", newValue));
+				}
+			});
 			
 			Button apply = new Button("Apply");
 			apply.setOnAction((e) -> {
@@ -189,7 +206,7 @@ public class Tools extends VBox {
 				mainView.draw();
 			});
 			
-			options.getChildren().addAll(ddLabel, dd, dnLabel, dn, nnLabel, nn, fpsLabel, fps, apply, cancel);
+			options.getChildren().addAll(new HBox(ddLabel, ddValue), dd, new HBox(dnLabel, dnValue), dn, new HBox(nnLabel, nnValue), nn, new HBox(fpsLabel, fpsValue, fpsLabel2), fps, new HBox(20, apply, cancel));
 			mainView.setCenter(options);
 		} else {
 			System.out.println("# Simulation in progress!");

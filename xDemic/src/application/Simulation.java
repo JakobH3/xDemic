@@ -4,17 +4,22 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Simulation {
+	private MainView mainView;
+	
 	private ArrayList<Device> deviceList;
 	private ArrayList<Device> nodeList;
 	private ArrayList<Connection> connectionList;
 	private ArrayList<Malware> malwareList;
+	
 	private double ddMobility=1;	// max of 1
 	private double dnMobility=1;	// max of 1
 	private double nnMobility=1;	// max of 1
 	
 	Random random = new Random();
 	
-	public Simulation() {
+	public Simulation(MainView mainView) {
+		this.mainView = mainView;
+		
 		deviceList = new ArrayList<Device>();
 		nodeList = new ArrayList<Device>();
 		connectionList = new ArrayList<Connection>();
@@ -23,6 +28,15 @@ public class Simulation {
 	
 	public void step() {
 		// TODO update the data which will then be drawn
+		
+		// determine if a device can be patched
+		for(int i=0; i<deviceList.size(); i++) {
+			for(int j=0; j<malwareList.size(); j++) {
+				if(mainView.getSimulator().getFrame() > deviceList.get(i).getTimeToPatch() + malwareList.get(j).getPatchRelease()) {
+					deviceList.get(i).patch(malwareList.get(j));
+				}
+			}
+		}
 		
 		// determine which devices behave as nodes
 		nodeList.clear();
@@ -92,11 +106,12 @@ public class Simulation {
 	
 	public void loadExample() {
 		reset();
-		for(int i=0; i<100; i++) {
-			deviceList.add(new Device(i, Integer.MAX_VALUE));
+		int deviceSize = random.nextInt(99)+1;
+		for(int i=0; i<deviceSize; i++) {
+			deviceList.add(new Device(random.nextDouble()*100, random.nextInt(3600)));
 		}
 		
-		malwareList.add(new Malware("Example Malware", 10, Integer.MAX_VALUE));
+		malwareList.add(new Malware("Example", random.nextDouble()*100, random.nextInt(3600)));
 		
 		for(int i=0; i<deviceList.size()-1; i++) {
 			connectionList.add(new Connection(deviceList.get(i), deviceList.get(i+1)));
