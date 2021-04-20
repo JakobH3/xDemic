@@ -11,9 +11,9 @@ public class Simulation {
 	private ArrayList<Connection> connectionList;
 	private ArrayList<Malware> malwareList;
 	
-	private double ddMobility=1;	// max of 1
-	private double dnMobility=1;	// max of 1
-	private double nnMobility=1;	// max of 1
+	private double ddMobility=1; // max of 1
+	private double dnMobility=1; // max of 1
+	private double nnMobility=1; // max of 1
 	
 	Random random = new Random();
 	
@@ -104,20 +104,20 @@ public class Simulation {
 		}
 	}
 	
-	public void loadExample() {
+	public void generateRandom() {
 		reset();
 		int deviceSize = random.nextInt(99)+1;
 		for(int i=0; i<deviceSize; i++) {
 			deviceList.add(new Device(random.nextDouble()*100, random.nextInt(3600)));
 		}
-		
 		malwareList.add(new Malware("Example", random.nextDouble()*100, random.nextInt(3600)));
-		
 		for(int i=0; i<deviceList.size()-1; i++) {
 			connectionList.add(new Connection(deviceList.get(i), deviceList.get(i+1)));
 		}
-		
 		deviceList.get(0).infect(malwareList.get(0));
+		ddMobility = random.nextDouble();
+		dnMobility = random.nextDouble();
+		nnMobility = random.nextDouble();
 	}
 	
 	public double calculatePercentInf(ArrayList<Device> deviceList) {

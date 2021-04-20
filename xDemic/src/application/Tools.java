@@ -92,7 +92,7 @@ public class Tools extends VBox {
 	
 	private void handleOpen(ActionEvent actionEvent) {
 		if(mainView.editing()) {
-			mainView.getSimulation().loadExample();
+			mainView.getSimulation().generateRandom();
 			mainView.draw();
 		} else {
 			System.out.println("# Simulation in progress!");

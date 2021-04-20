@@ -12,6 +12,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Stop;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.StrokeLineCap;
@@ -134,11 +137,16 @@ public class EnvironmentPane extends Pane {
 					device.setX(squareSize/2 + squareSize * (int) (device.getX()/squareSize));
 					device.setY(squareSize/2 + squareSize * (int) (device.getY()/squareSize));
 					device.draw();
+					update();
 	            } else if (e.isControlDown()) {
 	                // make connection
 	            	for(int j=0; j<mainView.getSimulation().getDeviceList().size(); j++) {
-	            		if(mainView.getSimulation().getDeviceList().get(j).getX() == squareSize/2 + squareSize * (int) (e.getX()/squareSize) && mainView.getSimulation().getDeviceList().get(j).getY() == squareSize/2 + squareSize * (int) (e.getY()/squareSize)) {
-	            			if(device != mainView.getSimulation().getDeviceList().get(j)) mainView.getSimulation().getConnectionList().add(new Connection(device, mainView.getSimulation().getDeviceList().get(j)));
+	            		for(int k=0; k<mainView.getSimulation().getDeviceList().size(); k++) {
+		            		if(mainView.getSimulation().getDeviceList().get(j).getX() == squareSize/2 + squareSize * (int) (e.getX()/squareSize) && mainView.getSimulation().getDeviceList().get(j).getY() == squareSize/2 + squareSize * (int) (e.getY()/squareSize)) {
+		            			if(mainView.getSimulation().getDeviceList().get(k).getX() == squareSize/2 + squareSize * (int) (device.getX()/squareSize) && mainView.getSimulation().getDeviceList().get(k).getY() == squareSize/2 + squareSize * (int) (device.getY()/squareSize)) {
+		            				if(mainView.getSimulation().getDeviceList().get(k) != mainView.getSimulation().getDeviceList().get(j)) mainView.getSimulation().getConnectionList().add(new Connection(mainView.getSimulation().getDeviceList().get(k), mainView.getSimulation().getDeviceList().get(j)));
+		            			}
+		            		}
 	            		}
 	            	}
 	            	sandbox.getChildren().remove(tempLine);
@@ -214,6 +222,7 @@ public class EnvironmentPane extends Pane {
 		squareSizeOld = squareSize;
 		
 		// add connections
+		// TODO find some way of showing directionality
 		for(int i=0; i<mainView.getSimulation().getConnectionList().size(); i++) {
 			Device device1 = mainView.getSimulation().getConnectionList().get(i).getConnection().get(0);
 			Device device2 = mainView.getSimulation().getConnectionList().get(i).getConnection().get(1);
@@ -225,8 +234,11 @@ public class EnvironmentPane extends Pane {
 			line.endXProperty().bind(device2.getC().centerXProperty());
 			line.endYProperty().bind(device2.getC().centerYProperty());
 		    
-			line.setStroke(Color.LIGHTGRAY);
-			line.setStrokeWidth(2);
+			line.setStroke(new LinearGradient(line.getStartX(), line.getStartY(), line.getEndX(), line.getEndY(), false, CycleMethod.NO_CYCLE, new Stop[] { new Stop(0, Color.LIGHTGRAY), new Stop(0.4, Color.LIGHTGRAY), new Stop(0.6, Color.TEAL)}));
+			for(int j=0; j<mainView.getSimulation().getConnectionList().size(); j++) {
+				if(mainView.getSimulation().getConnectionList().get(j).getConnection().get(0) == device2 && mainView.getSimulation().getConnectionList().get(j).getConnection().get(1) == device1) line.setStroke(Color.TEAL);
+			}
+			line.setStrokeWidth(3);
 			line.setStrokeLineCap(StrokeLineCap.ROUND);
 			
 			// TODO add ability to delete connections
