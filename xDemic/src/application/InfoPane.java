@@ -16,9 +16,22 @@ public class InfoPane extends Pane {
 		setMinHeight(200);
 		getChildren().add(pane);
 	}
-	
-	public void update() 
-	{
+
+	public void update() {
+		setPrefHeight(mainView.getHeight()*1/3);
+		// TODO may want to change infopane to extend scrollpane or some other method,
+		//      then put a vbox or hbox inside it
+		
+		// TODO display mobility rates
+		// TODO display frames per second
+		// TODO display total devices
+		// TODO display list of malware with % infected and % patched
+		// TODO display number of nodes
+		// TODO display number of connections
+		
+		// TODO if something specific is selected, display related info
+		// ** this will probably come later ** //
+		
 		int numDevices = mainView.getSimulation().getDeviceList().size() + mainView.getSimulation().getDeviceList().size();
 		GridPane tempPane = new GridPane();
 		ArrayList<Device> temp = mainView.getSimulation().getDeviceList();
@@ -44,7 +57,5 @@ public class InfoPane extends Pane {
 		}
 		
 		pane.getChildren().add(tempPane);
-		
-		
 	}
 }
