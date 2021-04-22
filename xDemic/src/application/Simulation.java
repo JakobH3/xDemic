@@ -129,7 +129,10 @@ public class Simulation {
 				numInfected++;	
 			}
 		}
-		percent = 100 * (numInfected / deviceList.size());
+		if(deviceList.size() > 0) {
+			percent = 100*((double)numInfected / (double)deviceList.size());
+		}
+		
 		return percent;
 	}
 	
@@ -142,7 +145,9 @@ public class Simulation {
 				numRecovered++;
 			}
 		}
-		percent = 100 * (numRecovered / deviceList.size());
+		if(deviceList.size() > 0) {
+			percent = 100 * ((double)numRecovered / (double)deviceList.size());
+		}
 		return percent;
 	}
 	

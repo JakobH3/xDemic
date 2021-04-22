@@ -1,6 +1,5 @@
 package application;
 
-import java.awt.Insets;
 import java.util.ArrayList;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.GridPane;
@@ -32,7 +31,7 @@ public class InfoPane extends Pane {
 		// TODO if something specific is selected, display related info
 		// ** this will probably come later ** //
 		
-		int numDevices = mainView.getSimulation().getDeviceList().size() + mainView.getSimulation().getDeviceList().size();
+		int numDevices = mainView.getSimulation().getDeviceList().size();
 		GridPane tempPane = new GridPane();
 		ArrayList<Device> temp = mainView.getSimulation().getDeviceList();
 		temp.addAll(mainView.getSimulation().getNodeList());
