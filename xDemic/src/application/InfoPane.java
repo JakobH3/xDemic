@@ -1,6 +1,6 @@
 package application;
 
-import java.awt.Insets;
+
 import java.util.ArrayList;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.GridPane;
@@ -37,6 +37,9 @@ public class InfoPane extends Pane {
 		Text numNodesText = new Text(" Number of Nodes " + numNodes);
 		Text numConnectionsText = new Text(" Number of Connections " + numConnections);
 		Text frameRateText = new Text(" Frame Rate: " + frameRate);
+		Text deviceMobility = new Text(" Device-Device Modifier: " + mainView.getSimulation().getDdMobility());
+		Text deviceNodeMobility = new Text(" Device-Node Modifier: " + mainView.getSimulation().getDnMobility());
+		Text nodeMobility = new Text(" Node-Node Modifier: " + mainView.getSimulation().getNnMobility());
 		
 		Text perInf = new Text(" Percentage Infected: " + perInfVal + "%");
 		
@@ -44,6 +47,10 @@ public class InfoPane extends Pane {
 		tempPane.add(numNodesText,0,1);
 		tempPane.add(numConnectionsText,0,2);
 		tempPane.add(frameRateText,0,3);
+		tempPane.add(deviceMobility,0,4);
+		tempPane.add(deviceNodeMobility,0,5);
+		tempPane.add(nodeMobility,0,6);
+		
 		
 		
 		
