@@ -137,7 +137,7 @@ public class EnvironmentPane extends Pane {
 					device.setX(squareSize/2 + squareSize * (int) (device.getX()/squareSize));
 					device.setY(squareSize/2 + squareSize * (int) (device.getY()/squareSize));
 					device.draw();
-					update();
+					mainView.draw();
 	            } else if (e.isControlDown()) {
 	                // make connection
 	            	for(int j=0; j<mainView.getSimulation().getDeviceList().size(); j++) {
@@ -145,6 +145,7 @@ public class EnvironmentPane extends Pane {
 		            		if(mainView.getSimulation().getDeviceList().get(j).getX() == squareSize/2 + squareSize * (int) (e.getX()/squareSize) && mainView.getSimulation().getDeviceList().get(j).getY() == squareSize/2 + squareSize * (int) (e.getY()/squareSize)) {
 		            			if(mainView.getSimulation().getDeviceList().get(k).getX() == squareSize/2 + squareSize * (int) (device.getX()/squareSize) && mainView.getSimulation().getDeviceList().get(k).getY() == squareSize/2 + squareSize * (int) (device.getY()/squareSize)) {
 		            				if(mainView.getSimulation().getDeviceList().get(k) != mainView.getSimulation().getDeviceList().get(j)) mainView.getSimulation().getConnectionList().add(new Connection(mainView.getSimulation().getDeviceList().get(k), mainView.getSimulation().getDeviceList().get(j)));
+		            				mainView.draw();
 		            			}
 		            		}
 	            		}

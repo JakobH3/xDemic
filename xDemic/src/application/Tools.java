@@ -43,7 +43,10 @@ public class Tools extends VBox {
 					
 				MenuItem reset = new MenuItem("Reset");
 				reset.setOnAction(this::handleReset);
-			file.getItems().addAll(add, open, save, reset);
+				
+				MenuItem resetConnections = new MenuItem("Reset Connections");
+				resetConnections.setOnAction(this::handleResetConnections);
+			file.getItems().addAll(add, open, save, reset, resetConnections);
 			
 			Menu help = new Menu("Help");
 				MenuItem helpDevices = new MenuItem("Devices");
@@ -106,6 +109,16 @@ public class Tools extends VBox {
 			mainView.getSimulator().reset();
 			mainView.draw();
 			System.out.println("> Simulation reset.");
+		} else {
+			System.out.println("# Simulation in progress!");
+		}
+	}
+	
+	private void handleResetConnections(ActionEvent actionEvent) {
+		if(mainView.editing()) {
+			mainView.getSimulation().getConnectionList().clear();
+			mainView.draw();
+			System.out.println("> Connections reset.");
 		} else {
 			System.out.println("# Simulation in progress!");
 		}

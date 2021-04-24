@@ -27,7 +27,8 @@ public class Simulation {
 	}
 	
 	public void step() {
-		// TODO update the data which will then be drawn
+		// determine number of nodes
+		update();
 		
 		// determine if a device can be patched
 		for(int i=0; i<deviceList.size(); i++) {
@@ -38,6 +39,12 @@ public class Simulation {
 			}
 		}
 		
+		for(int i=0; i<connectionList.size(); i++) {
+			interact(connectionList.get(i).getConnection());
+		}
+	}
+	
+	public void update() {
 		// determine which devices behave as nodes
 		nodeList.clear();
 		for(int i=0; i<deviceList.size(); i++) {
@@ -49,10 +56,6 @@ public class Simulation {
 			}
 			// a node has more than one input and more than one output
 			if(output > 1 && input > 1) nodeList.add(deviceList.get(i));
-		}
-		
-		for(int i=0; i<connectionList.size(); i++) {
-			interact(connectionList.get(i).getConnection());
 		}
 	}
 	
@@ -120,35 +123,48 @@ public class Simulation {
 		nnMobility = random.nextDouble();
 	}
 	
-	public double calculatePercentInf(ArrayList<Device> deviceList) {
-		double percent = 0;
-		int numInfected = 0;
+	public double calculatePercentInfected() {
+		int count = 0;
 		
 		for(int i = 0; i < deviceList.size(); i++) {
 			if(deviceList.get(i).isInfected()) {
-				numInfected++;	
+				count++;	
 			}
 		}
-		if(deviceList.size() > 0) {
-			percent = 100*((double)numInfected / (double)deviceList.size());
-		}
-		
-		return percent;
+		return deviceList.size() > 0 ? 100.0*count/deviceList.size() : 0;
 	}
 	
-	public double calculatePercentRecovered(ArrayList<Device> deviceList, Malware mal) {
-		double percent = 0;
-		int numRecovered = 0;
+	public double calculatePercentInfected(Malware malware) {
+		int count = 0;
 		
 		for(int i = 0; i < deviceList.size(); i++) {
-			if(deviceList.get(i).getPatchedMalwareList().indexOf(mal) > 0) {
-				numRecovered++;
+			if(deviceList.get(i).getMalwareList().contains(malware)) {
+				count++;	
 			}
 		}
-		if(deviceList.size() > 0) {
-			percent = 100 * ((double)numRecovered / (double)deviceList.size());
+		return deviceList.size() > 0 ? 100.0*count/deviceList.size() : 0;
+	}
+	
+	public double calculatePercentPatched() {
+		int count = 0;
+		
+		for(int i = 0; i < deviceList.size(); i++) {
+			if(deviceList.get(i).isPatched()) {
+				count++;	
+			}
 		}
-		return percent;
+		return deviceList.size() > 0 ? 100.0*count/deviceList.size() : 0;
+	}
+	
+	public double calculatePercentPatched(Malware malware) {
+		int count = 0;
+		
+		for(int i = 0; i < deviceList.size(); i++) {
+			if(deviceList.get(i).getPatchedMalwareList().contains(malware)) {
+				count++;	
+			}
+		}
+		return deviceList.size() > 0 ? 100.0*count/deviceList.size() : 0;
 	}
 	
 	public ArrayList<Device> getDeviceList() {

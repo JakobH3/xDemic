@@ -48,7 +48,8 @@ public class MainView extends BorderPane {
 		heightProperty().addListener((l) -> {draw();});
 	}
 
-	public void draw() {		
+	public void draw() {
+		simulation.update();
 		malware.update();
 		output.update();
 		environment.update();
