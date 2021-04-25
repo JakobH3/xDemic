@@ -6,7 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.util.Duration;
 
 public class Simulator {
-    private MainView mainView;
+	private MainView mainView;
     private Simulation simulation;
     private Timeline timeline;
     private int frameRate=60;
@@ -24,12 +24,6 @@ public class Simulator {
         mainView.draw();
         frame++;
     }
-    
-    public void reset() {
-    	this.timeline = new Timeline(new KeyFrame(Duration.millis(1000/frameRate), this::doStep));
-    	this.timeline.setCycleCount(Timeline.INDEFINITE);
-    	frame=0;
-    }
 
     public void start() {
 		System.out.println("> Simulator started at " + frameRate + " frames per second.");
@@ -41,6 +35,12 @@ public class Simulator {
 		System.out.println("> Simulator stopped.");
         timeline.stop();
         mainView.setState(MainView.EDITING);
+    }
+    
+    public void reset() {
+    	this.timeline = new Timeline(new KeyFrame(Duration.millis(1000/frameRate), this::doStep));
+    	this.timeline.setCycleCount(Timeline.INDEFINITE);
+    	frame=0;
     }
     
     public int getFrameRate() {

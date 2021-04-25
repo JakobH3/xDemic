@@ -50,6 +50,7 @@ public class MainView extends BorderPane {
 
 	public void draw() {
 		simulation.update();
+		
 		malware.update();
 		output.update();
 		environment.update();

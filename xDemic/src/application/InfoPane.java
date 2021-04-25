@@ -8,8 +8,8 @@ import javafx.scene.text.Text;
 public class InfoPane extends HBox {
 	private MainView mainView;
 	
-	ScrollPane simulationStatsScroll, environmentStatsScroll;
-	VBox simulationStats, environmentStats;
+	private ScrollPane simulationStatsScroll, environmentStatsScroll;
+	private VBox simulationStats, environmentStats;
 	
 	public InfoPane(MainView mainView) {
 		this.mainView = mainView;

@@ -6,24 +6,19 @@ import java.util.Random;
 public class Simulation {
 	private MainView mainView;
 	
-	private ArrayList<Device> deviceList;
-	private ArrayList<Device> nodeList;
-	private ArrayList<Connection> connectionList;
-	private ArrayList<Malware> malwareList;
+	private ArrayList<Device> deviceList = new ArrayList<Device>();
+	private ArrayList<Device> nodeList = new ArrayList<Device>();
+	private ArrayList<Connection> connectionList = new ArrayList<Connection>();
+	private ArrayList<Malware> malwareList = new ArrayList<Malware>();
 	
 	private double ddMobility=1; // max of 1
 	private double dnMobility=1; // max of 1
 	private double nnMobility=1; // max of 1
 	
-	Random random = new Random();
+	private Random random = new Random();
 	
 	public Simulation(MainView mainView) {
 		this.mainView = mainView;
-		
-		deviceList = new ArrayList<Device>();
-		nodeList = new ArrayList<Device>();
-		connectionList = new ArrayList<Connection>();
-		malwareList = new ArrayList<Malware>();
 	}
 	
 	public void step() {
