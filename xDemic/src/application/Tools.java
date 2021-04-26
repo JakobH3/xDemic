@@ -200,7 +200,7 @@ public class Tools extends VBox {
 			Text fpsLabel = new Text("Simulation will run at ");
 			Text fpsValue = new Text(String.format("%d", mainView.getSimulator().getFrameRate()));
 			Text fpsLabel2 = new Text(" frames per second");
-			Slider fps = new Slider(1, 60, mainView.getSimulator().getFrameRate());
+			Slider fps = new Slider(1, 10, mainView.getSimulator().getFrameRate());
 			fps.setMajorTickUnit(1);
 			fps.setMinorTickCount(0);
 			fps.setSnapToTicks(true);

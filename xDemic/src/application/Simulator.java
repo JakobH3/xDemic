@@ -9,7 +9,7 @@ public class Simulator {
 	private MainView mainView;
     private Simulation simulation;
     private Timeline timeline;
-    private int frameRate=60;
+    private int frameRate=10;
     private int frame=0;
 
     public Simulator(MainView mainView) {

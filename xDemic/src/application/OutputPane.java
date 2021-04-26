@@ -15,7 +15,7 @@ public class OutputPane extends Pane {
 	private final NumberAxis yAxis;
 	private LineChart<String, Number> lineChart;
 	private XYChart.Series<String, Number> patched, infected;
-	private final int MAX_DATA_POINTS = 60;
+	private final int MAX_DATA_POINTS = 20;
 	
 	public OutputPane(MainView mainView) {
 		this.mainView = mainView;
@@ -86,6 +86,9 @@ public class OutputPane extends Pane {
     	        getPlotChildren().addAll(infectedPolygon, patchedPolygon);
         	}
         };
+        lineChart.setPrefWidth(mainView.getWidth()*2/5);
+		lineChart.setPrefHeight(mainView.getHeight()*2/3-mainView.getTools().getHeight());
+		
         lineChart.setAnimated(false);
 		lineChart.setTitle("Population Status");
         

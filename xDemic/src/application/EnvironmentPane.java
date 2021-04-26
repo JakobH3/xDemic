@@ -1,5 +1,7 @@
 package application;
 
+import java.util.Random;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Cursor;
@@ -33,6 +35,8 @@ public class EnvironmentPane extends Pane {
 	
 	private Line tempLine;
 	private Device tempDevice;
+	
+	private Random random = new Random();
 
 	public EnvironmentPane(MainView mainView) {
 		this.mainView = mainView;
@@ -255,7 +259,7 @@ public class EnvironmentPane extends Pane {
 			VBox options = new VBox(10);
 			options.getStyleClass().add("options");
 			
-			double resistanceDefault=50, timeToPatchDefault=100, quantityDefault=1;
+			double resistanceDefault=100*random.nextDouble(), timeToPatchDefault=random.nextInt(50), quantityDefault=1;
 			
 			Text resistanceLabel = new Text("Resistance to infection is ");
 			Text resistanceValue = new Text(String.format("%.1f", resistanceDefault));
@@ -269,7 +273,7 @@ public class EnvironmentPane extends Pane {
 			Text timeToPatchLabel = new Text("Patches will be applied after ");
 			Text timeToPatchValue = new Text(String.format("%.0f", timeToPatchDefault));
 			Text timeToPatchLabel2 = new Text(" frames following patch release");
-			Slider timeToPatch = new Slider(0, 3600, timeToPatchDefault);
+			Slider timeToPatch = new Slider(0, 50, timeToPatchDefault);
 			timeToPatch.setMajorTickUnit(1);
 			timeToPatch.setMinorTickCount(0);
 			timeToPatch.setSnapToTicks(true);
