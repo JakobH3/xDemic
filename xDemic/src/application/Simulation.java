@@ -104,11 +104,11 @@ public class Simulation {
 	
 	public void generateRandom() {
 		reset();
-		int deviceSize = random.nextInt(99)+1;
+		int deviceSize = random.nextInt(23)+2;
 		for(int i=0; i<deviceSize; i++) {
-			deviceList.add(new Device(random.nextDouble()*100, random.nextInt(3600)));
+			deviceList.add(new Device(random.nextDouble()*100, random.nextInt(1800)));
 		}
-		malwareList.add(new Malware("Example", random.nextDouble()*100, random.nextInt(3600)));
+		malwareList.add(new Malware("Example", random.nextDouble()*100, random.nextInt(1800)));
 		for(int i=0; i<deviceList.size()-1; i++) {
 			connectionList.add(new Connection(deviceList.get(i), deviceList.get(i+1)));
 		}

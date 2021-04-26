@@ -48,6 +48,8 @@ public class Tools extends VBox {
 		random.setOnAction((e) -> {
 			if(mainView.editing()) {
 				mainView.getSimulation().generateRandom();
+				mainView.getSimulator().reset();
+				mainView.getOutput().reset();
 				mainView.draw();
 			} else {
 				System.out.println("# Simulation in progress!");
@@ -85,6 +87,7 @@ public class Tools extends VBox {
 				mainView.getSimulation().reset();
 				mainView.getSimulator().setFrameRate(60);
 				mainView.getSimulator().reset();
+				mainView.getOutput().reset();
 				mainView.draw();
 				System.out.println("> Simulation reset.");
 			} else {
@@ -214,6 +217,7 @@ public class Tools extends VBox {
 				mainView.getSimulation().setNnMobility(nn.getValue());
 				mainView.getSimulator().setFrameRate((int) fps.getValue());
 				mainView.getSimulator().reset();
+				mainView.getOutput().reset();
 				mainView.setCenter(mainView.getOutput());
 				mainView.draw();
 			});

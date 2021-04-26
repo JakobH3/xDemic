@@ -50,6 +50,58 @@ InfoPane VBox {
 	-fx-padding: 10px;
 }
 
+.chart {
+    -fx-padding: 10px;
+    -fx-legend-visible: false;
+}
+
+.chart-content {
+    -fx-padding: 30px;    
+}
+
+.chart-title {
+    -fx-text-fill: #ffffff;
+}
+
+.axis-label {
+    -fx-text-fill: #ffffff;
+}
+
+.chart-plot-background {
+    -fx-background-color: white;
+}
+
+.chart-vertical-grid-lines {
+    -fx-stroke: transparent;
+}
+
+.chart-horizontal-grid-lines {
+    -fx-stroke: transparent;
+}
+
+.chart-alternative-row-fill {
+    -fx-fill: transparent;
+    -fx-stroke: transparent;
+}
+
+.default-color0.chart-series-line {
+    -fx-stroke: transparent;
+}
+
+.default-color0.chart-line-symbol {
+    -fx-background-color: transparent;
+    -fx-stroke: transparent;
+}
+
+.default-color1.chart-series-line {
+    -fx-stroke: transparent;
+}
+
+.default-color1.chart-line-symbol {
+    -fx-background-color: transparent;
+    -fx-stroke: transparent;
+}
+
 .options {
 	-fx-background-color: transparent;
 	-fx-padding: 20px;
