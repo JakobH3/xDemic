@@ -104,15 +104,25 @@ public class Simulation {
 	
 	public void generateRandom() {
 		reset();
+		
 		int deviceSize = random.nextInt(998)+2;
 		for(int i=0; i<deviceSize; i++) {
 			deviceList.add(new Device(random.nextDouble()*100, random.nextInt(50)));
 		}
-		malwareList.add(new Malware("Example", random.nextDouble()*100, random.nextInt(100)));
-		for(int i=0; i<deviceList.size()-1; i++) {
-			connectionList.add(new Connection(deviceList.get(i), deviceList.get(i+1)));
+		
+		int malwareSize = random.nextInt(9) + 1;
+		for(int i=0; i<malwareSize; i++) {
+			malwareList.add(new Malware("Example " + (i+1), random.nextDouble()*100, (int) i*300/malwareSize));
 		}
-		deviceList.get(0).infect(malwareList.get(0));
+		
+		for(int i=0; i<2*deviceList.size()-1; i++) {
+			connectionList.add(new Connection(deviceList.get(random.nextInt(deviceList.size())), deviceList.get(random.nextInt(deviceList.size()))));
+		}
+		
+		for(int i=0; i<deviceList.size()/10; i++) {
+			deviceList.get(random.nextInt(deviceList.size())).infect(malwareList.get(random.nextInt(malwareList.size())));
+		}
+		
 		ddMobility = random.nextDouble();
 		dnMobility = random.nextDouble();
 		nnMobility = random.nextDouble();
@@ -120,7 +130,6 @@ public class Simulation {
 	
 	public double calculatePercentInfected() {
 		int count = 0;
-		
 		for(int i = 0; i < deviceList.size(); i++) {
 			if(deviceList.get(i).isInfected()) {
 				count++;	
@@ -131,7 +140,6 @@ public class Simulation {
 	
 	public double calculatePercentInfected(Malware malware) {
 		int count = 0;
-		
 		for(int i = 0; i < deviceList.size(); i++) {
 			if(deviceList.get(i).getMalwareList().contains(malware)) {
 				count++;	

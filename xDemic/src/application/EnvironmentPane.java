@@ -259,7 +259,7 @@ public class EnvironmentPane extends Pane {
 			VBox options = new VBox(10);
 			options.getStyleClass().add("options");
 			
-			double resistanceDefault=100*random.nextDouble(), timeToPatchDefault=random.nextInt(50), quantityDefault=1;
+			double resistanceDefault=100*random.nextDouble(), timeToPatchDefault=random.nextInt(300), quantityDefault=1;
 			
 			Text resistanceLabel = new Text("Resistance to infection is ");
 			Text resistanceValue = new Text(String.format("%.1f", resistanceDefault));
@@ -273,7 +273,7 @@ public class EnvironmentPane extends Pane {
 			Text timeToPatchLabel = new Text("Patches will be applied after ");
 			Text timeToPatchValue = new Text(String.format("%.0f", timeToPatchDefault));
 			Text timeToPatchLabel2 = new Text(" frames following patch release");
-			Slider timeToPatch = new Slider(0, 50, timeToPatchDefault);
+			Slider timeToPatch = new Slider(0, 300, timeToPatchDefault);
 			timeToPatch.setMajorTickUnit(1);
 			timeToPatch.setMinorTickCount(0);
 			timeToPatch.setSnapToTicks(true);

@@ -68,7 +68,7 @@ public class Device {
 	}
 	
 	public boolean isPatched() {
-		return (patchedMalwareList.size() > 0);
+		return malwareList.isEmpty() && patchedMalwareList.size() > 0;
 	}
 	
 	public void printInfo() {
