@@ -153,9 +153,11 @@ public class Tools extends VBox {
 		VBox helpList = new VBox();
 		helpList.getStyleClass().add("options");
 		
-		helpList.getChildren().add(new Text("Shift+drag to move devices."));
-		helpList.getChildren().add(new Text("Ctrl+drag to connect devices."));
-		helpList.getChildren().add(new Text("Right click to infect, patch, or delete devices."));
+		helpList.getChildren().add(new Text("Each circle represents a device."));
+		helpList.getChildren().add(new Text("To move devices: Shift + Drag."));
+		helpList.getChildren().add(new Text("To connect devices: Ctrl + Drag (This is a one-way connection [A -> B])."));
+		helpList.getChildren().add(new Text("To make a two-way connection [A <-> B], drag from device A to B then B to A"));
+		helpList.getChildren().add(new Text("To infect, patch, or delete devices: Right click"));
 		
 		Scene helpScene = new Scene(helpList, 400, 400);
 		
