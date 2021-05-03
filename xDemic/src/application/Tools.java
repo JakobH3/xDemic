@@ -85,7 +85,7 @@ public class Tools extends VBox {
 		reset.setOnAction((e) -> {
 			if(mainView.editing()) {
 				mainView.getSimulation().reset();
-				mainView.getSimulator().setFrameRate(60);
+				mainView.getSimulator().setFrameRate(10);
 				mainView.getSimulator().reset();
 				mainView.getOutput().reset();
 				mainView.draw();
