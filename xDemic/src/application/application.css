@@ -23,7 +23,7 @@ MalwarePane > .viewport {
 }
 
 .malware {
-	-fx-padding: 20px;
+	-fx-padding: 10px;
 }
 
 .malware Text {
@@ -35,7 +35,19 @@ EnvironmentPane {
 }
 
 InfoPane {
-	-fx-background-color: #3F3F3F;
+	-fx-background-color: transparent;
+}
+
+InfoPane ScrollPane {
+	-fx-background-color: transparent;
+}
+
+InfoPane .viewport {
+	-fx-background-color: transparent;
+}
+
+InfoPane VBox {
+	-fx-padding: 10px;
 }
 
 .options {

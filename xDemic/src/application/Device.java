@@ -6,8 +6,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 public class Device {
-	java.util.Random random = new java.util.Random();
-	
 	private ArrayList<Malware> malwareList = new ArrayList<Malware>(); // list of all malware active on the device
 	private ArrayList<Malware> patchedMalwareList = new ArrayList<Malware>(); // list of which malware have been patched
 	private double resistance; // probability of a device resisting malware
